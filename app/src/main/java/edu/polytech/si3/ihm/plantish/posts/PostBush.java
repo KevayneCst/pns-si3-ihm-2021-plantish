@@ -1,9 +1,10 @@
-package edu.marine.plantish1.posts;
+package edu.polytech.si3.ihm.plantish.posts;
 
 import java.util.Date;
 
-import edu.marine.plantish1.User;
-import edu.marine.plantish1.plants.Bush;
+import edu.polytech.si3.ihm.plantish.User;
+import edu.polytech.si3.ihm.plantish.plants.Bush;
+
 
 public class PostBush extends Post {
     private static final String BUSHIMAGE = "linkBushImage";

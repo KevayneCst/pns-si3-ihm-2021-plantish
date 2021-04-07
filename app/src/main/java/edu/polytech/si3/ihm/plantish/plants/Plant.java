@@ -1,11 +1,10 @@
-package edu.marine.plantish1.plants;
+package edu.polytech.si3.ihm.plantish.plants;
 
 import android.location.Location;
 import android.media.Image;
 
 import java.util.Date;
 
-import edu.marine.plantish1.User;
 
 public abstract class Plant {
     String name;
