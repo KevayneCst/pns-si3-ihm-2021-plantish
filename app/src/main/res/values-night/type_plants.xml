@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_plant">
+        <item>Rose</item>
+        <item>Orchidée</item>
+        <item>Cactus</item>
+        <item>Vigne</item>
+        <item>Violette</item>
+        <item>Chèvrefeuille</item>
+        <item>Olivier</item>
+        <item>Cerisier</item>
+    </string-array>
+</resources>
