@@ -2,10 +2,13 @@ package edu.polytech.si3.ihm.plantish.plants;
 
 import android.location.Location;
 
-public class Tree extends Plant {
+import java.io.Serializable;
+
+public class Tree extends Plant implements Serializable {
     private int size;
 
-    public Tree(String name, Location location, String description, String family) {
-        super(name, location, description, family);
+
+    public Tree(Location location, String description, String family) {
+        super(location, description, family, "TREE");
     }
 }

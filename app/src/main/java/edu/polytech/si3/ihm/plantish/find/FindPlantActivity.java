@@ -27,7 +27,7 @@ public class FindPlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(R.layout.activity_find);
-        map = findViewById(R.id.mapObject);
+        map = findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setBuiltInZoomControls(true); //Zoomable
         GeoPoint startPoint = new GeoPoint(43.65020, 7.00517); //Données de Marine ici
