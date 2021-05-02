@@ -1,12 +1,12 @@
 package edu.polytech.si3.ihm.plantish.plants;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import org.osmdroid.util.GeoPoint;
+
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public abstract class    PlantFactory  {
 
     String filePath = "plants.json";
 
-    public abstract Plant build(Location location, String family, String description);
+    public abstract Plant build(GeoPoint position, String family, String description);
 
     public abstract Post build(User user, Date date, Bitmap image, Plant plant);
 

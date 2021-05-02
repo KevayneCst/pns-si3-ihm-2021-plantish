@@ -5,12 +5,14 @@ import android.media.Image;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.util.Date;
 
 
 public  class Plant {
-    @SerializedName("location")
-    Location location;
+    @SerializedName("position")
+    GeoPoint position;
     @SerializedName("description")
     String description;
     @SerializedName("family")
@@ -26,8 +28,8 @@ public  class Plant {
     public static int TREEINT = 2;
 
 
-    public Plant(Location location, String description, String family, String type) {
-        this.location = location;
+    public Plant(GeoPoint position, String description, String family, String type) {
+        this.position = position;
         this.description = description;
         this.family = family;
         this.TYPE = type;
@@ -48,8 +50,8 @@ public  class Plant {
         return TYPE;
     }
 
-    public Location getLocation(){
-        return location;
+    public GeoPoint getPosition(){
+        return position;
     }
 
 }

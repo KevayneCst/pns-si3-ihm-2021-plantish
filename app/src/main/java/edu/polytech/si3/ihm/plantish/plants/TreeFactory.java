@@ -2,9 +2,9 @@ package edu.polytech.si3.ihm.plantish.plants;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 
-import java.io.IOException;
+import org.osmdroid.util.GeoPoint;
+
 import java.util.Date;
 
 import edu.polytech.si3.ihm.plantish.MainActivity;
@@ -18,8 +18,8 @@ public class TreeFactory extends PlantFactory {
     private Bitmap BITMAPTREE = BitmapFactory.decodeResource(MainActivity.context.getResources(), R.mipmap.tree2);
 
     @Override
-    public Plant build(Location location, String family, String description){
-        return new Tree(location, description, family);
+    public Plant build(GeoPoint position, String family, String description){
+        return new Tree(position, description, family);
     }
 
     @Override

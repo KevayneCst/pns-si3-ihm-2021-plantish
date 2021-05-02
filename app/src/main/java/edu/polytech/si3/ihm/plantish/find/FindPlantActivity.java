@@ -2,6 +2,7 @@ package edu.polytech.si3.ihm.plantish.find;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import java.util.List;
 import edu.polytech.si3.ihm.plantish.MyLocationListener;
 import edu.polytech.si3.ihm.plantish.R;
 
+
 /**
  * @author Kévin Constantin
  */
@@ -36,13 +38,13 @@ public class FindPlantActivity extends AppCompatActivity implements LinkedFilter
         map = findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setBuiltInZoomControls(true); //Zoomable
-        GeoPoint startPoint = new GeoPoint(43.65020, 7.00517); //Données de Marine ici
+        GeoPoint center = MyLocationListener.getLocation(this);
         IMapController controller = map.getController();
         controller.setZoom(18.0); //Valeur par défault du zoom
-        controller.setCenter(startPoint); //Centrer la carte sur ce point
+        controller.setCenter(center); //Centrer la carte sur ce point
 
         List<OverlayItem> marqueurs = new ArrayList<>();
-        OverlayItem home = new OverlayItem("Point A", "Il s'agit du point A", startPoint);
+        OverlayItem home = new OverlayItem("Point A", "Il s'agit du point A", center);
         Drawable d = home.getMarker(0); //Changer l'image du marqueur, ici un qui existe déjà
         marqueurs.add(home);
 
@@ -71,7 +73,7 @@ public class FindPlantActivity extends AppCompatActivity implements LinkedFilter
          * Bouton pour centrer la carte sur la position actuelle
          */
         findViewById(R.id.findCenterButton).setOnClickListener(v -> {
-            //TODO récupérer la position actuelle avec les données de Marine (= utiliser le startPoint)
+            controller.setCenter(center);
         });
     }
 

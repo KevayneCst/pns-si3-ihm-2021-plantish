@@ -96,7 +96,7 @@ public class AddPlantActivity extends AppCompatActivity {
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int GALLERY_REQUEST = 2;
-    private Location location;
+    private GeoPoint position;
     MapView map;
     protected static final int DEFAULT_INACTIVITY_DELAY_IN_MILLISECS = 1 ;
 
@@ -170,7 +170,7 @@ public class AddPlantActivity extends AppCompatActivity {
         //**
 
         //**  Location
-        location = MyLocationListener.getLocation(this);
+        position = MyLocationListener.getLocation(this);
         //**
 
         //** Address
@@ -178,8 +178,8 @@ public class AddPlantActivity extends AppCompatActivity {
         //**
 
         //** Map
-        if( location != null)
-            initializeMap(location);
+        if( position != null)
+            initializeMap(position);
 
         // Add button
         Button addButton = (Button) findViewById(R.id.button);
@@ -219,7 +219,7 @@ public class AddPlantActivity extends AppCompatActivity {
         geocoder = new Geocoder(this, Locale.getDefault());
 
         try {
-            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            addresses = geocoder.getFromLocation(position.getLatitude(), position.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -234,9 +234,9 @@ public class AddPlantActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String string = editAddress.getText().toString();
                 LatLng latlngLocation = AddPlantActivity.this.getLocationFromAddress(AddPlantActivity.this, string);
-                location.setLatitude(latlngLocation.latitude);
-                location.setLongitude(latlngLocation.longitude);
-                initializeMap(location);
+                position.setLatitude(latlngLocation.latitude);
+                position.setLongitude(latlngLocation.longitude);
+                initializeMap(position);
                 return true;
 
             }
@@ -291,7 +291,7 @@ public class AddPlantActivity extends AppCompatActivity {
                 } else {
                     plantFactory = new TreeFactory();
                 }
-                Plant plant = plantFactory.build(location, family, description);
+                Plant plant = plantFactory.build(position, family, description);
                 Post post;
                 if (bitmap == null)
                     post = plantFactory.build(user, datePost, plant);
@@ -360,13 +360,13 @@ public class AddPlantActivity extends AppCompatActivity {
             }});
     }
 
-    private void initializeMap(Location location){
+    private void initializeMap(GeoPoint position){
         map = findViewById(R.id.mapObject1);
         map.getOverlays().clear();
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setMultiTouchControls(true);
 
-        GeoPoint startPoint = new GeoPoint(location.getLatitude(), location.getLongitude()); //Données de Marine ici
+        GeoPoint startPoint = new GeoPoint(position.getLatitude(), position.getLongitude()); //Données de Marine ici
         IMapController controller = map.getController();
         controller.setZoom(19.2); //Valeur par défault du zoom
         controller.setCenter(startPoint); //Centrer la carte sur ce point
@@ -377,20 +377,20 @@ public class AddPlantActivity extends AppCompatActivity {
         map.setMapListener(new DelayedMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
-                location.setLatitude(map.getMapCenter().getLatitude());
-                location.setLongitude(map.getMapCenter().getLongitude());
+                position.setLatitude(map.getMapCenter().getLatitude());
+                position.setLongitude(map.getMapCenter().getLongitude());
                 map.getOverlays().clear();
-                setOverlayItem(map, new GeoPoint(location.getLatitude(), location.getLongitude()));
+                setOverlayItem(map, new GeoPoint(position.getLatitude(), position.getLongitude()));
                 setLocationOnEditText();
                 return false;
             }
 
             @Override
             public boolean onZoom(ZoomEvent event) {
-                location.setLatitude(map.getMapCenter().getLatitude());
-                location.setLongitude(map.getMapCenter().getLongitude());
+                position.setLatitude(map.getMapCenter().getLatitude());
+                position.setLongitude(map.getMapCenter().getLongitude());
                 map.getOverlays().clear();
-                setOverlayItem(map, new GeoPoint(location.getLatitude(), location.getLongitude()));
+                setOverlayItem(map, new GeoPoint(position.getLatitude(), position.getLongitude()));
                 setLocationOnEditText();
                 return false;
             }

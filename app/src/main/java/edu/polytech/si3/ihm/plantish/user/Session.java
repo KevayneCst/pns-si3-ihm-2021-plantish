@@ -47,11 +47,11 @@ public class Session implements Serializable {
         for(Post post: posts){
             Plant plant = post.getPlant();
             if(post.getPlant().getTYPE().equals(Plant.BUSH))
-                postsNew.add(new PostBush(post.getUser(), post.getDate(),  new Bush(plant.getLocation(), plant.getDescription(), plant.getFamily())));
+                postsNew.add(new PostBush(post.getUser(), post.getDate(),  new Bush(plant.getPosition(), plant.getDescription(), plant.getFamily())));
             else if(post.getPlant().getTYPE().equals(Plant.TREE))
-                postsNew.add(new PostTree(post.getUser(), post.getDate(),  new Tree(plant.getLocation(), plant.getDescription(), plant.getFamily())));
+                postsNew.add(new PostTree(post.getUser(), post.getDate(),  new Tree(plant.getPosition(), plant.getDescription(), plant.getFamily())));
             else {
-                postsNew.add(new PostFlower(post.getUser(), post.getDate(),  new Flower(plant.getLocation(), plant.getDescription(), plant.getFamily())));
+                postsNew.add(new PostFlower(post.getUser(), post.getDate(),  new Flower(plant.getPosition(), plant.getDescription(), plant.getFamily())));
 
             }
         }

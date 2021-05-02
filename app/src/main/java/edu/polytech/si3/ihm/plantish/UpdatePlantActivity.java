@@ -72,7 +72,7 @@ public class UpdatePlantActivity extends AppCompatActivity {
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 1;
     private static final int GALLERY_REQUEST = 2;
-    private Location location;
+    private GeoPoint location;
 
     private int position;
     private Post post;
@@ -135,7 +135,7 @@ public class UpdatePlantActivity extends AppCompatActivity {
         //**  Location
         MyLocationListener.Request_FINE_LOCATION(UpdatePlantActivity.this, MY_PERMISSION_ACCESS_COURSE_LOCATION);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        location = post.getPlant().getLocation();
+        location = post.getPlant().getPosition();
         //**
 
         //** Map
@@ -261,7 +261,7 @@ public class UpdatePlantActivity extends AppCompatActivity {
             }});
     }
 
-    private void initializeMap(Location location){
+    private void initializeMap(GeoPoint location){
         MapView map = findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setBuiltInZoomControls(true); //Zoomable

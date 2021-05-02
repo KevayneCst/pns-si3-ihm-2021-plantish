@@ -15,6 +15,8 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.osmdroid.util.GeoPoint;
+
 
 /**
  *
@@ -133,7 +135,7 @@ public class MyLocationListener implements LocationListener {
         // TODO Auto-generated method stub
     }
 
-    public static Location getLocation(Activity activity){
+    public static GeoPoint getLocation(Activity activity){
         Location location;
         MyLocationListener.Request_FINE_LOCATION(activity, MY_PERMISSION_ACCESS_COURSE_LOCATION);
         LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -145,7 +147,7 @@ public class MyLocationListener implements LocationListener {
             Log.d("GPS","GPS NOT FOUND");
             return null;
         }
-        return location;
+        return new GeoPoint(location.getLatitude(), location.getLongitude());
     }
 }
 

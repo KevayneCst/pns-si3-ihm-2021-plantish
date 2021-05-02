@@ -11,27 +11,27 @@ public class FilterData implements Parcelable {
     /**
      * Nombre de plantes qui seront affichées à l'écran
      */
-    private final int plantsShown;
+    private final int plantsShownIndex;
 
     /**
      * Portée depuis la position actuelle de l'utilisateur, de la visibilité des plantes
      */
-    private final int plantsRange;
+    private final int plantsRangeIndex;
 
     public FilterData(Parcel in) {
-        this.plantsShown = in.readInt();
-        this.plantsRange = in.readInt();
+        this.plantsShownIndex = in.readInt();
+        this.plantsRangeIndex = in.readInt();
     }
 
-    public FilterData(int plantsShown, int plantsRange)  {
-        this.plantsShown = plantsShown;
-        this.plantsRange = plantsRange;
+    public FilterData(int plantsShownIndex, int plantsRangeIndex)  {
+        this.plantsShownIndex = plantsShownIndex;
+        this.plantsRangeIndex = plantsRangeIndex;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(plantsShown);
-        dest.writeInt(plantsRange);
+        dest.writeInt(plantsShownIndex);
+        dest.writeInt(plantsRangeIndex);
     }
 
     @Override
@@ -51,11 +51,11 @@ public class FilterData implements Parcelable {
         }
     };
 
-    public int getPlantsShown() {
-        return plantsShown;
+    public int getPlantsShownIndex() {
+        return plantsShownIndex;
     }
 
-    public int getPlantsRange() {
-        return plantsRange;
+    public int getPlantsRangeIndex() {
+        return plantsRangeIndex;
     }
 }
