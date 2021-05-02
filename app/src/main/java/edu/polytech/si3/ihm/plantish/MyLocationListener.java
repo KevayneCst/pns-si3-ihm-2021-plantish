@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat;
  */
 public class MyLocationListener implements LocationListener {
     private static MyLocationListener instance = null;
+    private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 1;
 
 
     //The minimum distance to change updates in meters
@@ -129,6 +131,21 @@ public class MyLocationListener implements LocationListener {
     public void onStatusChanged(String provider,
                                 int status, Bundle extras) {
         // TODO Auto-generated method stub
+    }
+
+    public static Location getLocation(Activity activity){
+        Location location;
+        MyLocationListener.Request_FINE_LOCATION(activity, MY_PERMISSION_ACCESS_COURSE_LOCATION);
+        LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        try {
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            assert location != null;
+            Log.d("LOCATION", location.toString());
+        } catch (SecurityException e) {
+            Log.d("GPS","GPS NOT FOUND");
+            return null;
+        }
+        return location;
     }
 }
 

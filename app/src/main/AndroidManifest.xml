@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".MyPlantsActivity">
         </activity>
+        <activity android:name=".UpdatePlantActivity">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

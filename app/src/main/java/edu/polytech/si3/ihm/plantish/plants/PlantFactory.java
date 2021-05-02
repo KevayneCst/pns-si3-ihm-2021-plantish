@@ -15,7 +15,7 @@ import edu.polytech.si3.ihm.plantish.user.User;
 import edu.polytech.si3.ihm.plantish.posts.Post;
 
 
-public abstract class PlantFactory  {
+public abstract class    PlantFactory  {
 
     public static String FLOWER = "Fleur";
     public static String BUSH = "Buisson";

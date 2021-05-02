@@ -22,6 +22,8 @@ public class MyPlantsActivity extends ListActivity {
 
         this.session = Session.getInstance();
         PostAdapter postAdapter = new PostAdapter(this, session.getPosts());
+        postAdapter.notifyDataSetChanged();
+
         setListAdapter(postAdapter);
 
 

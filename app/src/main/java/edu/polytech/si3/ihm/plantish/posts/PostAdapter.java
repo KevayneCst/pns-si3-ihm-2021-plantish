@@ -3,6 +3,7 @@ package edu.polytech.si3.ihm.plantish.posts;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.polytech.si3.ihm.plantish.AddPlantActivity;
+import edu.polytech.si3.ihm.plantish.MyPlantsActivity;
 import edu.polytech.si3.ihm.plantish.R;
+import edu.polytech.si3.ihm.plantish.UpdatePlantActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
 
 public class PostAdapter extends ArrayAdapter {
@@ -57,32 +61,34 @@ public class PostAdapter extends ArrayAdapter {
         textViewDescription.setText(description);
 
         Button deleteBtn = (Button) row.findViewById(R.id.buttonDelete);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setCancelable(true);
-                builder.setTitle("Supression du post");
-                builder.setMessage("Voulez-vous vraiment supprimer ce post ?");
-                builder.setPositiveButton("Confirmer",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Session.deletePost(posts.get(position));
-                                notifyDataSetChanged();
-                            }
-                        });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        deleteBtn.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setCancelable(true);
+            builder.setTitle("Supression du post");
+            builder.setMessage("Voulez-vous vraiment supprimer ce post ?");
+            builder.setPositiveButton("Confirmer",
+                    (dialog, which) -> {
+                        Session.deletePost(posts.get(position));
+                        notifyDataSetChanged();
+                    });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
+                }
+            });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
-            }
+        });
+
+        Button updateBtn = (Button) row.findViewById(R.id.buttonEdit);
+
+        updateBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, UpdatePlantActivity.class);
+            intent.putExtra("Position", position);
+            context.startActivity(intent);
         });
 
         Log.i("POSTADAPTER", posts.get(position).plant.getFamily());

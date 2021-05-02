@@ -18,8 +18,12 @@ public  class Plant {
 
     String TYPE;
     public static String FLOWER = "FLOWER";
-    public static String TREE = "FLOWER";
-    public static String BUSH = "FLOWER";
+    public static String TREE = "TREE";
+    public static String BUSH = "BUSH";
+
+    public static int FLOWERINT = 0;
+    public static int BUSHINT = 1;
+    public static int TREEINT = 2;
 
 
     public Plant(Location location, String description, String family, String type) {

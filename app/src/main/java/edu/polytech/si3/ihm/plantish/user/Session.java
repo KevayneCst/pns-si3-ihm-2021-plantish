@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class Session implements Serializable {
 
             }
         }
-
+        Collections.reverse(postsNew);
         appPosts = postsNew;
     }
 
@@ -78,7 +79,7 @@ public class Session implements Serializable {
     }
 
     public static void addPost(Post post){
-        getInstance().appPosts.add(post);
+        getInstance().appPosts.add(0,post);
     }
 
     public static void deletePost(Post post) {getInstance().appPosts.remove(post);}
@@ -87,4 +88,6 @@ public class Session implements Serializable {
         getInstance().appPosts.remove(pos);
         getInstance().appPosts.add(pos, newPost);
     }
+
+    public static Post getPost(int pos){ return getInstance().appPosts.get(pos);}
 }
