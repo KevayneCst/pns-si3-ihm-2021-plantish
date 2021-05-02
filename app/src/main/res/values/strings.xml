@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Plantish</string>
+    <string-array name="plants_shown">
+        <item>100</item>
+        <item>50</item>
+        <item>25</item>
+        <item>10</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="plants_range">
+        <item>1000m</item>
+        <item>500m</item>
+        <item>250m</item>
+        <item>100m</item>
+        <item>50m</item>
+        <item>25m</item>
+    </string-array>
 </resources>

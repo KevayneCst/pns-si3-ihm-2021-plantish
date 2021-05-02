@@ -1,5 +1,6 @@
 package edu.polytech.si3.ihm.plantish.find;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -17,16 +18,21 @@ import org.osmdroid.views.overlay.OverlayItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.polytech.si3.ihm.plantish.MyLocationListener;
 import edu.polytech.si3.ihm.plantish.R;
 
-public class FindPlantActivity extends AppCompatActivity {
+/**
+ * @author Kévin Constantin
+ */
+public class FindPlantActivity extends AppCompatActivity implements LinkedFilter {
     private MapView map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         setContentView(R.layout.activity_find);
+
+        org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         map = findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setBuiltInZoomControls(true); //Zoomable
@@ -53,6 +59,20 @@ public class FindPlantActivity extends AppCompatActivity {
         });
         itemizedOverlayWithFocus.setFocusItemsOnTap(true);
         map.getOverlays().add(itemizedOverlayWithFocus);
+
+        /**
+         * Bouton pour acceder à la page de filtre
+         */
+        findViewById(R.id.findFilterButton).setOnClickListener(v -> {
+            startActivity(new Intent(this, FindPlantFilterActivity.class));
+        });
+
+        /**
+         * Bouton pour centrer la carte sur la position actuelle
+         */
+        findViewById(R.id.findCenterButton).setOnClickListener(v -> {
+            //TODO récupérer la position actuelle avec les données de Marine (= utiliser le startPoint)
+        });
     }
 
     @Override

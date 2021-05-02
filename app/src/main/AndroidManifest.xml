@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".find.FindPlantActivity"/>
+        <activity android:name=".find.FindPlantFilterActivity"/>
         <activity android:name=".AddPlantActivity">
         </activity>
         <activity android:name=".MyPlantsActivity">
