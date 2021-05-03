@@ -27,8 +27,6 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 
-import java.awt.Button;
-
 import edu.polytech.si3.ihm.plantish.R;
 
 public class Posts extends AppCompatActivity {
