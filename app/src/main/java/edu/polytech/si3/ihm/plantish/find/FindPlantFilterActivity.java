@@ -20,7 +20,7 @@ import edu.polytech.si3.ihm.plantish.R;
 public class FindPlantFilterActivity extends AppCompatActivity implements LinkedFilter {
 
     public static final FilterData defaultData = new FilterData(0, 0);
-    private FilterData selectedData = null;
+    private static FilterData selectedData = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

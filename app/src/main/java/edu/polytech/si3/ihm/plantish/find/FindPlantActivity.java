@@ -29,30 +29,34 @@ import edu.polytech.si3.ihm.plantish.R;
  */
 public class FindPlantActivity extends AppCompatActivity implements LinkedFilter {
     private MapView map;
+    private static final double DEFAULT_ZOOM = 18.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
-
         org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         map = findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setBuiltInZoomControls(true); //Zoomable
         GeoPoint center = MyLocationListener.getLocation(this);
         IMapController controller = map.getController();
-        controller.setZoom(18.0); //Valeur par défault du zoom
+        controller.setZoom(DEFAULT_ZOOM); //Valeur par défault du zoom
         controller.setCenter(center); //Centrer la carte sur ce point
 
-        FilterData filter = getIntent().getExtras().getParcelable(KEYWORD_INTENT);
-        if (filter == null) {
-            filter = FindPlantFilterActivity.defaultData;
+        FilterData filter = FindPlantFilterActivity.defaultData;
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                FilterData parcelable = getIntent().getExtras().getParcelable(KEYWORD_INTENT);
+                if (parcelable != null) {
+                    filter = parcelable;
+                }
+            }
         }
+
         List<OverlayItem> items = PlantFilterManager.getInstance().getFilteredPlants(getApplicationContext(), filter, center);
-        String text = "Aucune plante n'a été trouvée avec le filtre actuel";
-        if (items.isEmpty()) {
-            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-        }
         OverlayItem home = new OverlayItem("Vous êtes ici", "Votre position actuelle", center);
         Drawable d = home.getMarker(0); //TODO mettre une image selon le type de plante (arbre, fleur...)
         items.add(home);
@@ -83,6 +87,7 @@ public class FindPlantActivity extends AppCompatActivity implements LinkedFilter
          */
         findViewById(R.id.findCenterButton).setOnClickListener(v -> {
             controller.setCenter(center);
+            controller.setZoom(DEFAULT_ZOOM);
         });
     }
 

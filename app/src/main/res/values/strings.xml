@@ -9,6 +9,8 @@
     </string-array>
 
     <string-array name="plants_range">
+        <item>10000m</item>
+        <item>5000m</item>
         <item>1000m</item>
         <item>500m</item>
         <item>250m</item>

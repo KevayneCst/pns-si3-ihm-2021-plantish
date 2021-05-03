@@ -31,7 +31,7 @@ public class PlantFilterManager {
     public List<OverlayItem> getFilteredPlants(Context context, FilterData filter, GeoPoint center) {
         Resources res = context.getResources();
         int sizeListFilter = Integer.parseInt(res.getStringArray(R.array.plants_shown)[filter.getPlantsShownIndex()]);
-        int distanceFilter = Integer.parseInt(res.getStringArray(R.array.plants_range)[filter.getPlantsRangeIndex()].replace("", ""));
+        int distanceFilter = Integer.parseInt(res.getStringArray(R.array.plants_range)[filter.getPlantsRangeIndex()].replace("m", ""));
         List<Plant> allPlants = Session.getInstance().getPosts().stream().map(Post::getPlant).collect(Collectors.toList());
 
         //On filtre d'abord par la distance avec le centre
