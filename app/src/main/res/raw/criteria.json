@@ -1,0 +1,176 @@
+{
+  "PlanteTypes": {
+    "FLEUR": {
+      "label": "Fleur",
+      "description": "Plante à pétales",
+      "path": "plantTypes/fleur.jpg"
+    },
+    "GRASSE": {
+      "label": "Grasse",
+      "description": "Plante courte avec des feuilles longues et étroites",
+      "path": "plantTypes/grasse.jpg"
+    },
+    "BULBE": {
+      "label": "Bulbe",
+      "description": "Plante vivace qui produit un bulbe",
+      "path": "plantTypes/bulbe.jpg"
+    },
+    "GRAMINEE": {
+      "label": "Graminée",
+      "description": "Plante formée d'une succession d'épillets",
+      "path": "plantTypes/graminee.jpg"
+    },
+    "HAIE": {
+      "label": "Haie",
+      "description": "Structure végétale linéaire",
+      "path": "plantTypes/haie.jpg"
+    },
+    "ARBRE": {
+      "label": "Arbre",
+      "description": "Végétal vivace atteignant au moins 3 m de hauteur",
+      "path": "plantTypes/arbre.jpg"
+    }
+  },
+  "PlanteColors": {
+    "BLANC": {
+      "label": "Blanc",
+      "path": "plantColors/blanc.jpg"
+    },
+    "BLEU": {
+      "label": "Bleu",
+      "path": "plantColors/bleu.jpg"
+    },
+    "JAUNE": {
+      "label": "Jaune",
+      "path": "plantColors/jaune.jpg"
+    },
+    "MARRON": {
+      "label": "Marron",
+      "path": "plantColors/marron.jpg"
+    },
+    "MAUVE": {
+      "label": "Mauve",
+      "path": "plantColors/mauve.jpg"
+    },
+    "NOIR": {
+      "label": "Noir",
+      "path": "plantColors/noir.jpg"
+    },
+    "ORANGE": {
+      "label": "Orange",
+      "path": "plantColors/orange.jpg"
+    },
+    "ROSE": {
+      "label": "Rose",
+      "path": "plantColors/rose.jpg"
+    },
+    "VERT": {
+      "label": "Vert",
+      "path": "plantColors/vert.jpg"
+    },
+    "MULTICOULEUR": {
+      "label": "Multicouleur",
+      "path": "plantColors/multicouleur.jpg"
+    }
+  },
+  "PlanteSeasons": {
+    "AUTOMNE": {
+      "label": "Automne",
+      "path": "plantSeasons/automne.jpg"
+    },
+    "HIVER": {
+      "label": "Hiver",
+      "path": "plantSeasons/hiver.jpg"
+    },
+    "PRINTEMPS": {
+      "label": "Printemps",
+      "path": "plantSeasons/printemps.jpg"
+    },
+    "ETE": {
+      "label": "Été",
+      "path": "plantSeasons/ete.jpg"
+    },
+    "NE_FLEURIT_PAS": {
+      "label": "Ne fleurit pas",
+      "path": "plantSeasons/neFleuritPas.jpg"
+    }
+  },
+  "PlanteSuns": {
+    "SOLEIL": {
+      "label": "Soleil",
+      "path": "plantSuns/soleil.jpg"
+    },
+    "MI_OMBRE": {
+      "label": "Mi-ombre",
+      "path": "plantSuns/miOmbre.jpg"
+    },
+    "OMBRE": {
+      "label": "Ombre",
+      "path": "plantSuns/ombre.jpg"
+    }
+  },
+  "LeafShapes": {
+    "AIGUILLE": {
+      "label": "Aiguille",
+      "description": "Feuille très fine et pointue",
+      "path": "leafShapes/aiguille.jpg"
+    },
+    "COMPOSEE": {
+      "label": "Composée",
+      "description": "Feuille à plusieurs limbes distincts appelés folioles",
+      "path": "leafShapes/composee.jpg"
+    },
+    "LOBEE": {
+      "label": "Lobée",
+      "description": "Limbe de la feuille échancré sur au moins 20%",
+      "path": "leafShapes/lobee.jpg"
+    },
+    "SIMPLE": {
+      "label": "Simple",
+      "description": "Feuille à limbe unique, non divisé ni échancré",
+      "path": "leafShapes/simple.jpg"
+    },
+    "COMPLEXE": {
+      "label": "Complexe",
+      "description": "Feuille de forme difficile à décrire",
+      "path": "leafShapes/complexe.jpg"
+    },
+    "SANS_FEUILLE": {
+      "label": "Sans feuille",
+      "description": "Plante sans feuilles",
+      "path": "leafShapes/sansFeuille.jpg"
+    }
+  },
+  "LeafLayouts": {
+    "ALTERNES": {
+      "label": "Alternes",
+      "description": "Disposition décalée d’éléments le long de la tige",
+      "path": "leafLayouts/alternes.jpg"
+    },
+    "OPPOSEES": {
+      "label": "Opposées",
+      "description": "Disposition face à face, de 2 feuilles sur la tige",
+      "path": "leafLayouts/opposees.jpg"
+    },
+    "VERTICILLEES": {
+      "label": "Verticillées",
+      "description": "Plus de 2 éléments placés autour d’un axe au même niveau",
+      "path": "leafLayouts/verticillees.jpg"
+    },
+    "ENGAINANTE": {
+      "label": "Engainante",
+      "description": "Au moins la base de la feuille entoure la tige",
+      "path": "leafLayouts/engainante.jpg"
+    },
+    "ROSETTE": {
+      "label": "Rosette",
+      "description": "Feuilles disposées autour d’un point, au sol à la base de la plante",
+      "path": "leafLayouts/rosette.jpg"
+    },
+    "TOUFFE": {
+      "label": "Touffe",
+      "description": "Feuilles forment une base herbeuse autour de la plante",
+      "path": "leafLayouts/touffe.jpg"
+    }
+  }
+}

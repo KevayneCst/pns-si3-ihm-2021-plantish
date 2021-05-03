@@ -1,0 +1,304 @@
+﻿{
+    "Plants": [
+        {
+            "label": "Abies alba",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/abiesAlba.jpg"
+        },
+        {
+            "label": "Acis fabrei",
+            "type": "Fleur",
+            "color": "Blanc",
+            "season": "Printemps",
+            "sun": "Mi-ombre",
+            "shape": "Simple",
+            "layout": "Engainante",
+            "path": "plants/acisFabrei.jpg"
+        },
+        {
+            "label": "Adonis microcarpa",
+            "type": "Fleur",
+            "color": "Rouge",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Complexe",
+            "layout": "Verticillés",
+            "path": "plants/adonisMicrocarpa.jpg"
+        },
+        {
+            "label": "Ajuga reptans",
+            "type": "Fleur",
+            "color": "Mauve",
+            "season": "Été",
+            "sun": "Mi-ombre",
+            "shape": "Composée",
+            "layout": "Verticillés",
+            "path": "plants/ajugaReptans.jpg"
+        },
+        {
+            "label": "Androsace vitaliana",
+            "type": "Fleur",
+            "color": "Jaune",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Complexe",
+            "layout": "Verticillés",
+            "path": "plants/androsaceVitaliana.jpg"
+        },
+        {
+            "label": "Arbutus unedo",
+            "type": "Fleur",
+            "color": "Multicouleur",
+            "season": "Hiver",
+            "sun": "Soleil",
+            "shape": "Sans feuilles",
+            "layout": "Sans feuille",
+            "path": "plants/arbutusUnedo.jpg"
+        },
+        {
+            "label": "Laburnum",
+            "type": "Fleur",
+            "color": "Jaune",
+            "season": "Été",
+            "sun": "Mi-ombre",
+            "shape": "Simple",
+            "layout": "Alternes",
+            "path": "plants/laburnum.jpg"
+        },
+        {
+            "label": "Laburnum alpinum",
+            "type": "Arbre",
+            "color": "Jaune",
+            "season": "Été",
+            "sun": "Mi-ombre",
+            "shape": "Composée",
+            "layout": "Verticillés",
+            "path": "plants/laburnumAlpinum.jpg"
+        },
+        {
+            "label": "Larix decidua",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Automne",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/larixDecidua.jpg"
+        },
+        {
+            "label": "Lavatera trimestris",
+            "type": "Fleur",
+            "color": "Rose",
+            "season": "Été",
+            "sun": "Soleil",
+            "shape": "Simple",
+            "layout": "Rosette",
+            "path": "plants/lavateraTrimestris.jpg"
+        },
+        {
+            "label": "Carduus tenuiflorus",
+            "type": "Fleur",
+            "color": "Mauve",
+            "season": "Printemps",
+            "sun": "Ombre",
+            "shape": "Complexe",
+            "layout": "Rosette",
+            "path": "plants/carduusTenuiflorus.jpg"
+        },
+        {
+            "label": "Crocus ligusticus",
+            "type": "Fleur",
+            "color": "Mauve",
+            "season": "Automne",
+            "sun": "Soleil",
+            "shape": "Simple",
+            "layout": "Rosette",
+            "path": "plants/crocusLigusticus.jpg"
+        },
+        {
+            "label": "Olive",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Opposés",
+            "path": "plants/olive.jpg"
+        },
+        {
+            "label": "Phalaris minor",
+            "type": "Graminée",
+            "color": "Vert",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/phalarisMinor.jpg"
+        },
+        {
+            "label": "Pinus cembra",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Ne fleurit pas",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/pinusCembra.jpg"
+        },
+        {
+            "label": "Polygala comosa",
+            "type": "Fleur",
+            "color": "Mauve",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Composée",
+            "layout": "Rosette",
+            "path": "plants/polygalaComosa.jpg"
+        },
+        {
+            "label": "Prunus brigantina",
+            "type": "Arbre",
+            "color": "Jaune",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Simple",
+            "layout": "Opposés",
+            "path": "plants/prunusBrigantina.jpg"
+        },
+        {
+            "label": "Erica multiflora",
+            "type": "Haie",
+            "color": "Mauve",
+            "season": "Automne",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/ericaMultiflora.jpg"
+        },
+        {
+            "label": "Quercus rotundifolia",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Ne fleurit pas",
+            "sun": "Soleil",
+            "shape": "Simple",
+            "layout": "Opposés",
+            "path": "plants/quercusRotundifolia.jpg"
+        },
+        {
+            "label": "Fagus sylvatica",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Printemps",
+            "sun": "Mi-ombre",
+            "shape": "Complexe",
+            "layout": "Opposés",
+            "path": "plants/fagusSylvatica.jpg"
+        },
+        {
+            "label": "Fragaria vesca",
+            "type": "Fleur",
+            "color": "Rouge",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Composée",
+            "layout": "Verticillés",
+            "path": "plants/fragariaVesca.jpg"
+        },
+        {
+            "label": "Ranunculus fluitans",
+            "type": "Fleur",
+            "color": "Multicouleur",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Complexe",
+            "layout": "Touffle",
+            "path": "plants/ranunculusFluitans.jpg"
+        },
+        {
+            "label": "Galium lucidum",
+            "type": "Grasse",
+            "color": "Vert",
+            "season": "Ne fleurit pas",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/galiumLucidum.jpg"
+        },
+        {
+            "label": "Hordeum murinum",
+            "type": "Graminée",
+            "color": "Vert",
+            "season": "Automne",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Touffle",
+            "path": "plants/hordeumMurinum.jpg"
+        },
+        {
+            "label": "Saccharina latissima",
+            "type": "Grasse",
+            "color": "Vert",
+            "season": "Ne fleurit pas",
+            "sun": "Ombre",
+            "shape": "Complexe",
+            "layout": "Engainante",
+            "path": "plants/saccharinaLatissima.jpg"
+        },
+        {
+            "label": "Sedum reflexum",
+            "type": "Grasse",
+            "color": "Vert",
+            "season": "Été",
+            "sun": "Soleil",
+            "shape": "Aiguille",
+            "layout": "Verticillés",
+            "path": "plants/sedumReflexum.jpg"
+        },
+        {
+            "label": "Typha lugdunensis",
+            "type": "Grasse",
+            "color": "Marron",
+            "season": "Hiver",
+            "sun": "Soleil",
+            "shape": "Complexe",
+            "layout": "Touffle",
+            "path": "plants/typhaLugdunensis.jpg"
+        },
+        {
+            "label": "Ulmus laevis",
+            "type": "Arbre",
+            "color": "Vert",
+            "season": "Hiver",
+            "sun": "Soleil",
+            "shape": "Composée",
+            "layout": "Alternes",
+            "path": "plants/ulmusLaevis.jpg"
+        },
+        {
+            "label": "Viola hispida",
+            "type": "Fleur",
+            "color": "Bleu",
+            "season": "Printemps",
+            "sun": "Soleil",
+            "shape": "Simple",
+            "layout": "Rosette",
+            "path": "plants/violaHispida.jpg"
+        },
+        {
+            "label": "Zostera noltei",
+            "type": "Grasse",
+            "color": "Vert",
+            "season": "Ne fleurie pas",
+            "sun": "Soleil",
+            "shape": "Complexe",
+            "layout": "Verticillés",
+            "path": "plants/zosteraNoltei.jpg"
+        }
+    ]
+}

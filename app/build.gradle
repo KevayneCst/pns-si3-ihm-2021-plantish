@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -38,6 +39,7 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.0.2'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation "com.google.android.gms:play-services-maps:10.0.1"
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

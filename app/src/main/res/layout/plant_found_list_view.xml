@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/identifyYourPlantText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:text="Identifier votre plante"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/criterionLabelListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Criterion Label"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/identifyYourPlantText" />
+
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="15dp"
+        android:background="#d1d1d1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/criterionLabelListView">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/plantFoundListView"
+            android:cacheColorHint="#00000000"
+            android:paddingTop="10dp"
+            android:choiceMode="singleChoice"
+            android:dividerHeight="10dp"
+            android:divider="#d1d1d1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/iDontKnowButtonListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Je ne sais pas"
+        android:textAllCaps="false"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@id/plantFoundButtonListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <Button
+        android:id="@+id/plantFoundButtonListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x plantes trouvées"
+        app:layout_constraintTop_toBottomOf="@+id/iDontKnowButtonListView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
