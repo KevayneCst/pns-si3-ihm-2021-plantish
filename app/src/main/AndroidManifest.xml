@@ -38,6 +38,8 @@
         <activity android:name="edu.polytech.si3.ihm.plantish.community.FacebookFeed" />
         <activity android:name="edu.polytech.si3.ihm.plantish.community.Posts" />
         <activity android:name="edu.polytech.si3.ihm.plantish.community.LoginActivity"/>
+        <activity android:name=".PostPlantActivity">
+        </activity>
         <service
             android:name="edu.polytech.si3.ihm.plantish.identify.PlantFinderService"
             android:enabled="true" />

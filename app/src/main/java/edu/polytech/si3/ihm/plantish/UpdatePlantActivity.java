@@ -27,7 +27,9 @@ import edu.polytech.si3.ihm.plantish.user.Session;
 
 public class UpdatePlantActivity extends PlantActivity {
 
+
     private int pos;
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,14 @@ public class UpdatePlantActivity extends PlantActivity {
         this.user = Session.getInstance().getUser();
         this.pos = getIntent().getIntExtra("Position", 0);
 
-        Post post = Session.getPost(pos);
+        this.post = Session.getUserPost(pos);
 
         //DATE
         // initiate the date picker and a button
         date = (EditText) findViewById(R.id.date);
         // perform click event on edit text
         setCalendar();
-        date.setText(post.getDate().getDay()+"/"+ post.getDate().getMonth()+"/"+ post.getDate().getYear());
+        date.setText(post.getDate().getDay()+"/"+post.getDate().getMonth()+"/"+post.getDate().getYear());
 
         //** Description
         this.description = (EditText) findViewById(R.id.editText2);
@@ -93,15 +95,15 @@ public class UpdatePlantActivity extends PlantActivity {
             initializeMap(position);
 
         // Add button
-        Button updateButton = (Button) findViewById(R.id.button);
-        updatePlant(updateButton);
+        Button addButton = (Button) findViewById(R.id.button);
+        addPlant(addButton);
 
     }
 
 
-    private void updatePlant(Button updateButton){
+    private boolean addPlant(Button addButton){
 
-        updateButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Date datePost = new Date();
@@ -123,6 +125,7 @@ public class UpdatePlantActivity extends PlantActivity {
                 } else {
                     plantFactory = new TreeFactory();
                 }
+                Session.deletePostInApp(UpdatePlantActivity.this.post);
                 Plant plant = plantFactory.build(position, family, description);
                 Post post;
                 if (bitmap == null)
@@ -138,10 +141,9 @@ public class UpdatePlantActivity extends PlantActivity {
 
             }
         });
+        return false;
 
     }
-
-
 
 
 

@@ -32,6 +32,7 @@ import edu.polytech.si3.ihm.plantish.posts.PostTree;
 public class Session implements Serializable {
     private User user;
     private List<Post> appPosts;
+    private List<Post> userPosts;
     private static Session session;
 
 
@@ -57,6 +58,11 @@ public class Session implements Serializable {
         }
         Collections.reverse(postsNew);
         appPosts = postsNew;
+        userPosts = new ArrayList<>();
+        for(Post p : appPosts){
+            if(p.getUser().getName().equals(user.getName()))
+                userPosts.add(p);
+        }
     }
 
     public static Session getInstance(){
@@ -74,20 +80,33 @@ public class Session implements Serializable {
         return appPosts;
     }
 
+    public List<Post> getUserPosts(){
+        return userPosts;
+    }
+
     public void setUser(User user){
         this.user = user;
     }
 
     public static void addPost(Post post){
         getInstance().appPosts.add(0,post);
+        getInstance().userPosts.add(0,post);
     }
 
-    public static void deletePost(Post post) {getInstance().appPosts.remove(post);}
+    public static void deletePost(Post post) {
+        getInstance().appPosts.remove(post);
+        getInstance().userPosts.remove(post);}
+
+    public static void deletePostInApp(Post post) {
+        getInstance().appPosts.remove(post);
+    }
 
     public static void updatePost(int pos, Post newPost){
-        getInstance().appPosts.remove(pos);
-        getInstance().appPosts.add(pos, newPost);
+        getInstance().userPosts.remove(pos);
+        getInstance().userPosts.add(pos, newPost);
+        getInstance().appPosts.add(0, newPost);
     }
 
     public static Post getPost(int pos){ return getInstance().appPosts.get(pos);}
+    public static Post getUserPost(int pos){ return getInstance().userPosts.get(pos);}
 }

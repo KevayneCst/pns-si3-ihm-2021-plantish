@@ -82,7 +82,7 @@ public abstract class PlantActivity extends AppCompatActivity {
         return 0;
     }
 
-    String englishToFrench(String s){
+    public static String englishToFrench(String s){
         if(s.equals("FLOWER")) return "Fleur";
         if(s.equals("BUSH")) return "Buisson";
         if(s.equals("TREE")) return "Arbre";
@@ -171,7 +171,7 @@ public abstract class PlantActivity extends AppCompatActivity {
 
     }
 
-    public class MapOverlay extends org.osmdroid.views.overlay.Overlay {
+    public static class MapOverlay extends org.osmdroid.views.overlay.Overlay {
 
         public MapOverlay(Context ctx) {super(ctx);}
 
@@ -199,7 +199,7 @@ public abstract class PlantActivity extends AppCompatActivity {
         }
     }
 
-    private void setOverlayItem(MapView map, GeoPoint startPoint){
+    void setOverlayItem(MapView map, GeoPoint startPoint){
         List<OverlayItem> marqueurs = new ArrayList<>();
         OverlayItem home = new OverlayItem("Votre Plante", "", startPoint);
         Bitmap d =  BitmapFactory.decodeResource(MainActivity.context.getResources(), R.mipmap.grass); //Changer l'image du marqueur, ici un qui existe déjà

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,8 @@ import java.util.List;
 
 import edu.polytech.si3.ihm.plantish.AddPlantActivity;
 import edu.polytech.si3.ihm.plantish.MyPlantsActivity;
+import edu.polytech.si3.ihm.plantish.PlantActivity;
+import edu.polytech.si3.ihm.plantish.PostPlantActivity;
 import edu.polytech.si3.ihm.plantish.R;
 import edu.polytech.si3.ihm.plantish.UpdatePlantActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
@@ -92,6 +95,17 @@ public class PostAdapter extends ArrayAdapter {
         });
 
         Log.i("POSTADAPTER", posts.get(position).plant.getFamily());
+
+
+        row.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(context, PostPlantActivity.class);
+                intent.putExtra("Position", position);
+                context.startActivity(intent);
+                return false;
+            }
+        });
 
         return  row;
     }
