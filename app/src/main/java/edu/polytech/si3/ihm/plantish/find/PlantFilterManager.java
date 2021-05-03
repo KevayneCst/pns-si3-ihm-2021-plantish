@@ -19,6 +19,8 @@ import edu.polytech.si3.ihm.plantish.user.Session;
 
 /**
  * Singleton qui gère les données des plantes du JSON en les filtrant avec le filterData
+ *
+ * @author Kévin Constantin
  */
 public class PlantFilterManager {
     private static PlantFilterManager instance;
@@ -40,7 +42,9 @@ public class PlantFilterManager {
         //On garde toutes les plantes filtrées jusqu'au nombre maximum de plantes affichées voulues
         filteredPlants = filteredPlants.subList(0, Math.min(filteredPlants.size(), sizeListFilter));
         List<OverlayItem> items = new ArrayList<>();
-
+        for (Plant p : filteredPlants) {
+            items.add(new OverlayItem(p.getTYPE()+" : "+p.getFamily(), p.getDescription(), p.getPosition()));
+        }
         return items;
     }
 

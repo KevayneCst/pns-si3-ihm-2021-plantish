@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
@@ -43,12 +44,20 @@ public class FindPlantActivity extends AppCompatActivity implements LinkedFilter
         controller.setZoom(18.0); //Valeur par défault du zoom
         controller.setCenter(center); //Centrer la carte sur ce point
 
-        List<OverlayItem> marqueurs = new ArrayList<>();
-        OverlayItem home = new OverlayItem("Point A", "Il s'agit du point A", center);
-        Drawable d = home.getMarker(0); //Changer l'image du marqueur, ici un qui existe déjà
-        marqueurs.add(home);
+        FilterData filter = getIntent().getExtras().getParcelable(KEYWORD_INTENT);
+        if (filter == null) {
+            filter = FindPlantFilterActivity.defaultData;
+        }
+        List<OverlayItem> items = PlantFilterManager.getInstance().getFilteredPlants(getApplicationContext(), filter, center);
+        String text = "Aucune plante n'a été trouvée avec le filtre actuel";
+        if (items.isEmpty()) {
+            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+        }
+        OverlayItem home = new OverlayItem("Vous êtes ici", "Votre position actuelle", center);
+        Drawable d = home.getMarker(0); //TODO mettre une image selon le type de plante (arbre, fleur...)
+        items.add(home);
 
-        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(getApplicationContext(), marqueurs, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(getApplicationContext(), items, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
                 return true; // Pour qu'il réagisse quand j'ai cliqué dessus
