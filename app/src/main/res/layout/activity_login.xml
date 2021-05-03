@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/green_light"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.polytech.si3.ihm.plantish.community.LoginActivity">
+
+
+    <TextView
+        android:id="@+id/txtTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:text="Veuillez vous Connectez !" />
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="300dp"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="507dp" />
+
+    <Button
+        android:id="@+id/community"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:onClick="btnClick"
+        android:visibility="invisible"
+        android:text="Demander à la communauté\nsignaler un incident" />
+
+
+    <Button
+        android:id="@+id/accessbtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:onClick="accessCommunity"
+        android:text="Acceder à la communauté"
+        android:visibility="invisible" />
+
+
+    <Button
+        android:id="@+id/profile_btn"
+        android:background="@drawable/user"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="-450dp"
+        android:layout_marginRight="30dp"
+        android:visibility="invisible"
+        android:onClick="profile"
+        android:layout_gravity="right" />
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="edu.polytech.si3.ihm.plantish.community.Profile">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_user"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="username"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/profile_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:onClick="calendar"
+        android:text="Historique"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/previous"
+        android:background="@drawable/previous"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="30dp"
+        android:onClick="previous"
+        android:layout_marginTop="-450dp"/>
+
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.polytech.si3.ihm.plantish.community.Posts">
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="126dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[0]" />
+
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/incident_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center_horizontal"
+        android:text="signaler un incident"
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="466dp" />
+
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="poser une question a la communauté"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="517dp" />
+
+    <Button
+        android:id="@+id/add_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ajouter image"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="617dp" />
+    <Button
+        android:id="@+id/previous"
+        android:background="@drawable/previous"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="30dp"
+        android:onClick="previous"
+        android:layout_marginTop="-600dp"/>
+
+
+</LinearLayout>

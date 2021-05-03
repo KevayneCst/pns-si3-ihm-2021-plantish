@@ -16,4 +16,6 @@
         <item>50m</item>
         <item>25m</item>
     </string-array>
+    <string name="facebook_app_id">3825926067493707</string>
+    <string name="fb_login_protocol_scheme">fb3825926067493707</string>
 </resources>

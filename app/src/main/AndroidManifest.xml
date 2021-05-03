@@ -33,9 +33,28 @@
         <activity android:name="edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantSeasonActivity" />
         <activity android:name="edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantColorActivity" />
         <activity android:name="edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity" />
+        <activity android:name="edu.polytech.si3.ihm.plantish.community.Profile"></activity>
+        <activity android:name="edu.polytech.si3.ihm.plantish.community.HitoriqueIncidents" />
+        <activity android:name="edu.polytech.si3.ihm.plantish.community.FacebookFeed" />
+        <activity android:name="edu.polytech.si3.ihm.plantish.community.Posts" />
+        <activity android:name="edu.polytech.si3.ihm.plantish.community.LoginActivity"/>
         <service
             android:name="edu.polytech.si3.ihm.plantish.identify.PlantFinderService"
             android:enabled="true" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider3825926067493707"
+            android:exported="true" />
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -43,5 +62,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>
