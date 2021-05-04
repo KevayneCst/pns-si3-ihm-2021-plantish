@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import org.osmdroid.api.IMapController;
@@ -67,15 +69,15 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
         controller.setCenter(center); //Centrer la carte sur ce point
 
         FilterData filter = FindPlantFilterActivity.defaultData;
-        Intent intent = getActivity().getIntent();
-        if (intent != null) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                FilterData parcelable = extras.getParcelable(KEYWORD_INTENT);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+          /*  Bundle extras = bundle.getParcelable(KEYWORD_INTENT);
+            if (extras != null) {*/
+                FilterData parcelable = bundle.getParcelable(KEYWORD_INTENT);
                 if (parcelable != null) {
                     filter = parcelable;
                 }
-            }
+            //}
         }
 
         List<OverlayItem> items = PlantFilterManager.getInstance().getFilteredPlants(ctx.getApplicationContext(), filter, center);
@@ -101,7 +103,11 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
          * Bouton pour acceder à la page de filtre
          */
         view.findViewById(R.id.findFilterButton).setOnClickListener(v -> {
-            startActivity(new Intent(ctx, FindPlantFilterActivity.class));
+            FindPlantFilterActivity filterFragment = new FindPlantFilterActivity();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, filterFragment);
+            fragmentTransaction.commit();
         });
 
         /**
