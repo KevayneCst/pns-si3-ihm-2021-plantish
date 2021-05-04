@@ -11,7 +11,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -105,6 +107,8 @@ public class Posts extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
         if(requestCode == CAMERA_REQUEST_CODE){
             Bitmap image = (Bitmap) data.getExtras().get("data");
+            rotaingImageView(90,image);
+            imageView.setRotation(90);
             imageView.setImageBitmap(image);
         }
 
@@ -118,4 +122,13 @@ public class Posts extends AppCompatActivity {
                 .build();
         incident.setShareContent(content);
     }
+    public Bitmap rotaingImageView(int angle , Bitmap bitmap) {
+        //Rotate the image Action
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        // Create a new image
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+
 }

@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:onClick="calendar"
-        android:text="Historique"
+        android:text="Agenda"
         android:visibility="visible" />
 
     <Button

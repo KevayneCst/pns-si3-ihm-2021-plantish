@@ -7,13 +7,21 @@
     android:orientation="vertical"
     tools:context="edu.polytech.si3.ihm.plantish.community.Posts">
 
+    <Button
+        android:id="@+id/previous"
+        android:background="@drawable/previous"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="30dp"
+        android:onClick="previous"
+        android:layout_marginTop="20dp"/>
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="150dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/ic_launcher_background"
         tools:layout_editor_absoluteX="16dp"
@@ -27,6 +35,7 @@
         android:layout_marginTop="200dp"
         android:layout_gravity="center_horizontal"
         android:text="signaler un incident"
+        android:layout_marginBottom="30dp"
         tools:layout_editor_absoluteX="124dp"
         tools:layout_editor_absoluteY="466dp" />
 
@@ -41,20 +50,14 @@
 
     <Button
         android:id="@+id/add_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ajouter image"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="617dp" />
-    <Button
-        android:id="@+id/previous"
-        android:background="@drawable/previous"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="left"
-        android:layout_marginLeft="30dp"
-        android:onClick="previous"
-        android:layout_marginTop="-600dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/camera"
+        android:layout_marginTop="10dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="617dp" />
+
 
 
 </LinearLayout>

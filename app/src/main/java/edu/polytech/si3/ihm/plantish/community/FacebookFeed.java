@@ -6,17 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.android.gms.common.internal.service.Common;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,8 +33,10 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.polytech.si3.ihm.plantish.R;
@@ -49,13 +59,12 @@ public class  FacebookFeed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getPostsImage();
         setContentView(R.layout.posts_feed);
         authorNameTV=findViewById(R.id.idTVAuthorName);
         recyclerView=findViewById(R.id.idRVInstaFeeds);
         authorImage=findViewById(R.id.idCVAuthor);
         callbackManager = CallbackManager.Factory.create();
-
-        getPostsImage();
         getFacebookFeeds();
     }
 
@@ -63,7 +72,6 @@ public class  FacebookFeed extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     public void getFacebookFeeds(){
         ArrayList<FacebookModele> feeds = new ArrayList<>();
@@ -142,10 +150,15 @@ public class  FacebookFeed extends AppCompatActivity {
                         }
                     }
                 });
-
         Bundle parameters = new Bundle();
         parameters.putString("fields", "message,full_picture,created_time");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imgPostLink.clear();
     }
 }

@@ -69,13 +69,13 @@
             android:padding="5dp"
             android:text="Description"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="15sp" />
 
         <!--image view to display the post image-->
         <ImageView
             android:id="@+id/idIVPost"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_below="@id/idTVDescription"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
