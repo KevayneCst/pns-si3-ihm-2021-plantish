@@ -1,11 +1,14 @@
 package edu.polytech.si3.ihm.plantish.identify.activities_identification;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,12 +34,13 @@ import edu.polytech.si3.ihm.plantish.identify.PlantFound;
 import edu.polytech.si3.ihm.plantish.identify.adapters_identification.GridViewPlantFoundAdapter;
 import edu.polytech.si3.ihm.plantish.identify.adapters_identification.ListViewPlantFoundAdapter;
 
+import static android.content.Context.MODE_PRIVATE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANT_FOUND;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_GRIDVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_LISTVIEW;
 
-public class ListOfPlantsFoundActivity extends AppCompatActivity {
+public class ListOfPlantsFoundActivity extends Fragment {
 
     private ViewStub stubGrid;
     private ViewStub stubList;
@@ -51,31 +57,34 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
     private Button mainMenuButtonGridView;
     private int currentViewMode = 0;
     private String plants;
+    private View view;
+    private Activity ctx;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_found_plants);
+        view = inflater.inflate(R.layout.activity_found_plants, container, false);
+        ctx = getActivity();
 
-        stubList = findViewById(R.id.stub_list);
-        stubGrid = findViewById(R.id.stub_grid);
+        stubList = view.findViewById(R.id.stub_list);
+        stubGrid = view.findViewById(R.id.stub_grid);
 
         //Inflate ViewStub before get view
 
         stubList.inflate();
         stubGrid.inflate();
 
-        listView = findViewById(R.id.plantFoundListView);
-        gridView = findViewById(R.id.plantFoundGridView);
+        listView = view.findViewById(R.id.plantFoundListView);
+        gridView = view.findViewById(R.id.plantFoundGridView);
 
         //get widgets
-        numberOfPlantsListView = findViewById(R.id.numberOfPlantsListView);
-        numberOfPlantsGridView = findViewById(R.id.numberOfPlantsGridView);
-        notMyPLantButtonListView = findViewById(R.id.notMyPLantButtonListView);
-        notMyPLantButtonGridView = findViewById(R.id.notMyPLantButtonGridView);
-        mainMenuButtonListView = findViewById(R.id.mainMenuButtonListView);
-        mainMenuButtonGridView = findViewById(R.id.mainMenuButtonGridView);
+        numberOfPlantsListView = view.findViewById(R.id.numberOfPlantsListView);
+        numberOfPlantsGridView = view.findViewById(R.id.numberOfPlantsGridView);
+        notMyPLantButtonListView = view.findViewById(R.id.notMyPLantButtonListView);
+        notMyPLantButtonGridView = view.findViewById(R.id.notMyPLantButtonGridView);
+        mainMenuButtonListView = view.findViewById(R.id.mainMenuButtonListView);
+        mainMenuButtonGridView = view.findViewById(R.id.mainMenuButtonGridView);
 
         setPlants();
 
@@ -87,7 +96,7 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
         }
 
         //Get current view mode in share reference
-        SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("ViewMode", MODE_PRIVATE);
         currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
         //Register item click
         listView.setOnItemClickListener(onItemClick);
@@ -101,6 +110,7 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
         mainMenuButtonListView.setOnClickListener(click -> goToMainActivity());
         mainMenuButtonGridView.setOnClickListener(click -> goToMainActivity());
 
+        return view;
     }
 
     private void setNumberOfPlants(){
@@ -117,15 +127,16 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
     }
 
     private void goToMainActivity(){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(ctx.getApplicationContext(), MainActivity.class));
     }
 
     private void goToNotFoundActivity(){
-        startActivity(new Intent(getApplicationContext(), PlantNotFoundActivity.class));
+        startActivity(new Intent(ctx.getApplicationContext(), PlantNotFoundActivity.class));
     }
 
     private void setPlants() {
-        plants = getIntent().getStringExtra(FILTERED_PLANTS);
+        Bundle bundle = new Bundle();
+        plants = bundle.getString(FILTERED_PLANTS);
     }
 
     private void switchView() {
@@ -146,10 +157,10 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
 
     private void setAdapters() {
         if(VIEW_MODE_LISTVIEW == currentViewMode) {
-            listViewAdapter = new ListViewPlantFoundAdapter(this, R.layout.plant_found_list_item, plantFoundList);
+            listViewAdapter = new ListViewPlantFoundAdapter(ctx, R.layout.plant_found_list_item, plantFoundList);
             listView.setAdapter(listViewAdapter);
         } else {
-            gridViewAdapter = new GridViewPlantFoundAdapter(this, R.layout.plant_found_grid_item, plantFoundList);
+            gridViewAdapter = new GridViewPlantFoundAdapter(ctx, R.layout.plant_found_grid_item, plantFoundList);
             gridView.setAdapter(gridViewAdapter);
         }
     }
@@ -169,16 +180,15 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //Do when user click to item
-            Intent intent = new Intent(getApplicationContext(), PlantFoundActivity.class);
+            Intent intent = new Intent(ctx.getApplicationContext(), PlantFoundActivity.class);
             intent.putExtra(PLANT_FOUND, plantFoundList.get(position));
             startActivity(intent);
         }
     };
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        ctx.getMenuInflater().inflate(R.menu.main, menu);
+        return getActivity().onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -193,7 +203,7 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
                 //Switch view
                 switchView();
                 //Save view mode in share reference
-                SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = ctx.getSharedPreferences("ViewMode", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("currentViewMode", currentViewMode);
                 editor.commit();

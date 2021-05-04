@@ -2,7 +2,11 @@ package edu.polytech.si3.ihm.plantish.identify.activities_identification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import edu.polytech.si3.ihm.plantish.R;
 import edu.polytech.si3.ihm.plantish.identify.lists_identification.ListType;
 
 import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria.TYPE;
@@ -10,10 +14,12 @@ import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantC
 public class PlantTypeActivity extends CriterionActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
+
 
     @Override
     protected void setCriterionList() {
@@ -27,7 +33,7 @@ public class PlantTypeActivity extends CriterionActivity{
 
     @Override
     protected void setIntentToNextActivity(){
-        intentToNextActivity = new Intent(getApplicationContext(),PlantColorActivity.class);
+        fragmentToNextActivity = new PlantColorActivity();
     }
 
 

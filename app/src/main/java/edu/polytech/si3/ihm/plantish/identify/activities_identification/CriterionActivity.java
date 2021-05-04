@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,6 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.json.JSONException;
@@ -32,6 +39,7 @@ import edu.polytech.si3.ihm.plantish.identify.adapters_identification.GridViewCr
 import edu.polytech.si3.ihm.plantish.identify.adapters_identification.ListViewCriteriaAdapter;
 import edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria;
 
+import static android.content.Context.MODE_PRIVATE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.ACTION_RESP;
 import static edu.polytech.si3.ihm.plantish.identify.Application.CRITERION_LABEL_VALUE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS;
@@ -42,7 +50,7 @@ import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_GRIDV
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_LISTVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria.TYPE;
 
-public abstract class CriterionActivity extends AppCompatActivity {
+public abstract class CriterionActivity extends Fragment {
 
     protected PlantFoundReceiver receiver;
     protected String plants;
@@ -65,45 +73,54 @@ public abstract class CriterionActivity extends AppCompatActivity {
     protected Button cancelButtonListView;
     protected Button cancelButtonGridView;
     protected int currentViewMode = 0;
-    protected Intent intentToNextActivity;
+    protected Fragment fragmentToNextActivity;
 
-
+    protected Context ctx;
+    protected View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.criteria_layout, container, false);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.criteria_layout);
+        ctx = getActivity();
         createActivity();
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     protected void createActivity(){
 
-
-        stubList = findViewById(R.id.stub_list);
-        stubGrid = findViewById(R.id.stub_grid);
+        stubList = view.findViewById(R.id.stub_list);
+        stubGrid = view.findViewById(R.id.stub_grid);
 
         //Inflate ViewStub before get view
 
         stubList.inflate();
         stubGrid.inflate();
 
-        listView = findViewById(R.id.listView);
-        gridView = findViewById(R.id.gridview);
+        listView = view.findViewById(R.id.listView);
+        gridView = view.findViewById(R.id.gridview);
 
-        activityTitleListView = findViewById(R.id.numberOfPlantsListView);
-        activityTitleGridView = findViewById(R.id.criterionLabelGridView);
-        iDontKnowButtonListView = findViewById(R.id.notMyPLantButtonListView);
-        iDontKnowButtonGridView = findViewById(R.id.iDontKnowButtonGridView);
-        plantFoundButtonListView = findViewById(R.id.mainMenuButtonListView);
-        plantFoundButtonGridView = findViewById(R.id.plantFoundButtonGridView);
-        cancelButtonListView = findViewById(R.id.cancelActionListView);
-        cancelButtonGridView = findViewById(R.id.cancelActionGridView);
+        activityTitleListView = view.findViewById(R.id.numberOfPlantsListView);
+        activityTitleGridView = view.findViewById(R.id.criterionLabelGridView);
+        iDontKnowButtonListView = view.findViewById(R.id.notMyPLantButtonListView);
+        iDontKnowButtonGridView = view.findViewById(R.id.iDontKnowButtonGridView);
+        plantFoundButtonListView = view.findViewById(R.id.mainMenuButtonListView);
+        plantFoundButtonGridView = view.findViewById(R.id.plantFoundButtonGridView);
+        cancelButtonListView = view.findViewById(R.id.cancelActionListView);
+        cancelButtonGridView = view.findViewById(R.id.cancelActionGridView);
 
 
         //Get current view mode in share reference
-        SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = ctx.getSharedPreferences("ViewMode", MODE_PRIVATE);
         currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
         //Register item click
+
 
 
 
@@ -138,22 +155,24 @@ public abstract class CriterionActivity extends AppCompatActivity {
 
 
     protected void sendIntentToService(){
-        Intent intent = new Intent(CriterionActivity.this, PlantFinderService.class);
+        Intent intent = new Intent(getActivity(), PlantFinderService.class);
         intent.putExtra(PLANTS,plants);
         intent.putExtra(CRITERION_LABEL_VALUE, criterionLabelValue);
         intent.putExtra(PLANT_CRITERION_LABEL,plantCriteria.label);
-        startService(intent);
+        ctx.startService(intent);
     }
 
     protected void setReceiver(){
         receiver = new PlantFoundReceiver();
         IntentFilter filter = new IntentFilter(ACTION_RESP);
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filter);
     }
 
     protected void setPlants(){
+        Bundle bundle = this.getArguments();
+
         try {
-            plants = (plantCriteria.label.equals(TYPE.label)) ? DataLoader.getPlantsDataFromJson(this) : getIntent().getStringExtra(FILTERED_PLANTS);
+            plants = (plantCriteria.label.equals(TYPE.label)) ? DataLoader.getPlantsDataFromJson(ctx) : bundle.getString(FILTERED_PLANTS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -186,10 +205,10 @@ public abstract class CriterionActivity extends AppCompatActivity {
 
     protected void setAdapters() {
         if(VIEW_MODE_LISTVIEW == currentViewMode) {
-            listViewAdapter = new ListViewCriteriaAdapter(this, R.layout.criterion_list_item, criterionList);
+            listViewAdapter = new ListViewCriteriaAdapter(ctx, R.layout.criterion_list_item, criterionList);
             listView.setAdapter(listViewAdapter);
         } else {
-            gridViewAdapter = new GridViewCriteriaAdapter(this, R.layout.criterion_grid_item, criterionList);
+            gridViewAdapter = new GridViewCriteriaAdapter(ctx, R.layout.criterion_grid_item, criterionList);
             gridView.setAdapter(gridViewAdapter);
         }
     }
@@ -198,7 +217,7 @@ public abstract class CriterionActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             try {
-                criterionLabelValue = DataLoader.getCriterionDataFromJson(getApplicationContext(), criterionList.get(position).getName());
+                criterionLabelValue = DataLoader.getCriterionDataFromJson(ctx.getApplicationContext(), criterionList.get(position).getName());
                 sendIntentToService();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -206,10 +225,9 @@ public abstract class CriterionActivity extends AppCompatActivity {
         }
     };
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+        return getActivity().onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -224,7 +242,7 @@ public abstract class CriterionActivity extends AppCompatActivity {
                 //Switch view
                 switchView();
                 //Save view mode in share reference
-                SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = ctx.getSharedPreferences("ViewMode", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("currentViewMode", currentViewMode);
                 editor.commit();
@@ -236,7 +254,7 @@ public abstract class CriterionActivity extends AppCompatActivity {
 
     protected void onClickIDontKnowButton(){
         startNextActivity(plants);
-        finish();
+        getActivity().finish();
     }
 
 
@@ -254,34 +272,52 @@ public abstract class CriterionActivity extends AppCompatActivity {
      * We will never get 0 plants when triggering this function, this is why testing if plants are empty has been omitted
      */
     protected void onClickFoundPlantsButton(){
-        Intent intent = new Intent(getApplicationContext(), ListOfPlantsFoundActivity.class);
-        intent.putExtra(FILTERED_PLANTS,plants);
-        startActivity(intent);
+
+        ListOfPlantsFoundActivity listOfPlantsFoundActivity = new ListOfPlantsFoundActivity();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(FILTERED_PLANTS, plants);
+        listOfPlantsFoundActivity.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, listOfPlantsFoundActivity);
+        fragmentTransaction.commit();
+
+
     }
 
 
     public class PlantFoundReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             filteredPlants = intent.getStringExtra(FILTERED_PLANTS_SERVICE);
             System.out.println(filteredPlants);
+            Log.d("FILTRE", filteredPlants);
             startNextActivity(filteredPlants);
         }
     }
 
     public void startNextActivity(String filteredPlants){
+
+
         try {
             if (DataLoader.getNumberOfPlantsFromJsonString(filteredPlants)>0){
-                intentToNextActivity.putExtra(FILTERED_PLANTS, filteredPlants);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(FILTERED_PLANTS, filteredPlants);
+                fragmentToNextActivity.setArguments(bundle);
             }
             else {
-                intentToNextActivity = new Intent(getApplicationContext(), PlantNotFoundActivity.class);
+                fragmentToNextActivity = new PlantNotFoundActivity();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        startActivity(intentToNextActivity);
+        FragmentManager fragmentManager =  getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragmentToNextActivity);
+        fragmentTransaction.commit();
     }
+
 
     protected void onClickCancelButton(){
         onBackPressed();
@@ -315,10 +351,9 @@ public abstract class CriterionActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    @Override
     public void onBackPressed() {
-        if (plantCriteria.label.equals(TYPE.label)) startActivity(new Intent(this, MainActivity.class));
-        startActivity(new Intent(this, PlantTypeActivity.class));
+        if (plantCriteria.label.equals(TYPE.label)) startActivity(new Intent(ctx, MainActivity.class));
+        startActivity(new Intent(ctx, PlantTypeActivity.class));
     }
 
 

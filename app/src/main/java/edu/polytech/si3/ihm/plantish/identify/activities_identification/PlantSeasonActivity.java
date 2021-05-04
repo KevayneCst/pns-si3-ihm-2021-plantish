@@ -2,6 +2,9 @@ package edu.polytech.si3.ihm.plantish.identify.activities_identification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import edu.polytech.si3.ihm.plantish.identify.lists_identification.ListSeason;
 
@@ -10,8 +13,11 @@ import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantC
 public class PlantSeasonActivity extends CriterionActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        return view;
     }
 
     @Override
@@ -26,6 +32,6 @@ public class PlantSeasonActivity extends CriterionActivity{
 
     @Override
     protected void setIntentToNextActivity(){
-        intentToNextActivity = new Intent(getApplicationContext(),PlantSunActivity.class);
+        fragmentToNextActivity = new PlantSunActivity();
     }
 }

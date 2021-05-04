@@ -3,10 +3,16 @@
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/grass"
-        android:title="Find"/>
+        android:title="Map"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/grass"
         android:title="Add"/>
+
+    <item
+        android:id="@+id/page_3"
+        android:enabled="true"
+        android:icon="@drawable/grass"
+        android:title="Find"/>
 </menu>

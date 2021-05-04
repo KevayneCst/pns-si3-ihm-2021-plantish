@@ -1,26 +1,40 @@
 package edu.polytech.si3.ihm.plantish.identify.activities_identification;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import edu.polytech.si3.ihm.plantish.MainActivity;
 import edu.polytech.si3.ihm.plantish.R;
 
 
-public class PlantNotFoundActivity extends AppCompatActivity {
+public class PlantNotFoundActivity extends Fragment {
 
     private Button askCommunityButton;
     private Button homeButton;
+    private View view;
+    private Context ctx;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plant_not_found);
-        askCommunityButton =  findViewById(R.id.askCommunityButton);
-        homeButton = findViewById(R.id.mainButton);
+        View view = inflater.inflate(R.layout.activity_plant_not_found, container, false);
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
+        askCommunityButton =  view.findViewById(R.id.askCommunityButton);
+        homeButton = view.findViewById(R.id.mainButton);
         askCommunityButton.setOnClickListener(click -> onClickAskCommunityButton());
         homeButton.setOnClickListener(click -> onClickHomeButton());
     }
@@ -30,11 +44,10 @@ public class PlantNotFoundActivity extends AppCompatActivity {
     }
 
     private void onClickHomeButton(){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(ctx, MainActivity.class));
     }
 
-    @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, PlantTypeActivity.class));
+        startActivity(new Intent(ctx, PlantTypeActivity.class));
     }
 }
