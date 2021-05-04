@@ -42,7 +42,7 @@ public class FindPlantFilterActivity extends Fragment implements LinkedFilter {
         cxt = getActivity();
 
         TextView textViewKeywords = view.findViewById(R.id.findFilterWithKeyword);
-        textViewKeywords.setText(selectedData == null ? defaultData.toStringKeywords() : defaultData.toStringKeywords());
+        textViewKeywords.setText(selectedData == null ? defaultData.toStringKeywords() : selectedData.toStringKeywords());
         textViewKeywords.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }

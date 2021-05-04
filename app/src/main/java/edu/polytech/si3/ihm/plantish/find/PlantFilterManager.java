@@ -54,7 +54,7 @@ public class PlantFilterManager {
             } else {
                 for (String keyword : keywords) {
                     String currentKeyword = keyword.toLowerCase();
-                    if (currentKeyword.contains(titre.toLowerCase()) || currentKeyword.contains(description.toLowerCase())) {
+                    if (titre.toLowerCase().contains(currentKeyword) || description.toLowerCase().contains(currentKeyword)) {
                         items.add(new OverlayItem(titre, description, p.getPosition()));
                     }
                 }
