@@ -13,6 +13,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -53,17 +54,9 @@ public class LoginActivity extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login, container, false);
-
-        return view;
-    }
-
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ctx = getActivity();
-        view = getView();
-        super.onCreate(savedInstanceState);
-
         loginButton=view.findViewById(R.id.login_button);
+        callbackManager = CallbackManager.Factory.create();
+
         incident= view.findViewById(R.id.incident_button);
         question=view.findViewById(R.id.question_button);
         txtTop=view.findViewById(R.id.txtTop);
@@ -71,8 +64,8 @@ public class LoginActivity extends Fragment {
         button=view.findViewById(R.id.community);
         profileBtn=view.findViewById(R.id.profile_btn);
 
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.setPermissions(Arrays.asList("user_gender,user_friends,user_posts"));
+        loginButton.setFragment(this);
+        loginButton.setPermissions(Arrays.asList("email,public_profile"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -90,7 +83,19 @@ public class LoginActivity extends Fragment {
                 Log.d("Demo","Login error");
             }
         });
+
+        return view;
+
     }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
+        super.onCreate(savedInstanceState);
+    }
+
+
 
     public void btnClick(View v){
         Posts posts= new Posts();
@@ -121,6 +126,7 @@ public class LoginActivity extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
 
 
 

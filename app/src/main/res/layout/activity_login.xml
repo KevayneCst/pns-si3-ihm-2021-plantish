@@ -36,7 +36,6 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:onClick="btnClick"
         android:visibility="invisible"
         android:text="Demander à la communauté\nsignaler un incident" />
 
@@ -47,20 +46,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="30dp"
-        android:onClick="accessCommunity"
         android:text="Acceder à la communauté"
         android:visibility="invisible" />
 
 
     <Button
         android:id="@+id/profile_btn"
-        android:background="@drawable/user"
+        android:background="@drawable/profileuser"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="-450dp"
         android:layout_marginRight="30dp"
         android:visibility="invisible"
-        android:onClick="profile"
         android:layout_gravity="right" />
 
 
