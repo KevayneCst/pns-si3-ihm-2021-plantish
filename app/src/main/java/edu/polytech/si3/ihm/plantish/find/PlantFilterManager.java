@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.polytech.si3.ihm.plantish.PlantActivity;
 import edu.polytech.si3.ihm.plantish.R;
 import edu.polytech.si3.ihm.plantish.plants.Plant;
 import edu.polytech.si3.ihm.plantish.posts.Post;
@@ -32,6 +33,7 @@ public class PlantFilterManager {
         Resources res = context.getResources();
         int sizeListFilter = Integer.parseInt(res.getStringArray(R.array.plants_shown)[filter.getPlantsShownIndex()]);
         int distanceFilter = Integer.parseInt(res.getStringArray(R.array.plants_range)[filter.getPlantsRangeIndex()].replace("m", ""));
+        List<String> keywords = filter.getKeywords();
         List<Plant> allPlants = Session.getInstance().getPosts().stream().map(Post::getPlant).collect(Collectors.toList());
 
         //On filtre d'abord par la distance avec le centre
@@ -43,12 +45,25 @@ public class PlantFilterManager {
         filteredPlants = filteredPlants.subList(0, Math.min(filteredPlants.size(), sizeListFilter));
         List<OverlayItem> items = new ArrayList<>();
         for (Plant p : filteredPlants) {
-            items.add(new OverlayItem(p.getTYPE()+" : "+p.getFamily(), p.getDescription(), p.getPosition()));
+            int distanceInMeter = (int) center.distanceToAsDouble(p.getPosition());
+            String titre = PlantActivity.englishToFrench(p.getTYPE()) + " : " + p.getFamily() + " à environ " + distanceInMeter + "m";
+            String description = p.getDescription();
+            //On regarde enfin s'il y a des mots clés, s'il y en a filtrer encore, sinon ajouter le marqueur
+            if (keywords.isEmpty()) {
+                items.add(new OverlayItem(titre, description, p.getPosition()));
+            } else {
+                for (String keyword : keywords) {
+                    String currentKeyword = keyword.toLowerCase();
+                    if (currentKeyword.contains(titre.toLowerCase()) || currentKeyword.contains(description.toLowerCase())) {
+                        items.add(new OverlayItem(titre, description, p.getPosition()));
+                    }
+                }
+            }
         }
         return items;
     }
 
     public static PlantFilterManager getInstance() {
-        return instance == null ? new PlantFilterManager() : instance;
+        return instance = instance == null ? new PlantFilterManager() : instance;
     }
 }

@@ -71,7 +71,7 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
         if (intent != null) {
             Bundle extras = intent.getExtras();
             if (extras != null) {
-                FilterData parcelable = getActivity().getIntent().getExtras().getParcelable(KEYWORD_INTENT);
+                FilterData parcelable = extras.getParcelable(KEYWORD_INTENT);
                 if (parcelable != null) {
                     filter = parcelable;
                 }
