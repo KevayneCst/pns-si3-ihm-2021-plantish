@@ -1,14 +1,20 @@
 package edu.polytech.si3.ihm.plantish;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import edu.polytech.si3.ihm.plantish.find.FindPlantActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
 import edu.polytech.si3.ihm.plantish.user.User;
@@ -22,25 +28,44 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
-        startActivity(new Intent(this, PlantTypeActivity.class));
-    }
 
-       /* session = Session.getInstance();
+
+        session = Session.getInstance();
         session.setUser(new User("Emilie"));
 
         setContentView(R.layout.activity_main);
-        Button buttonAdd = (Button) findViewById(R.id.addButton);
-        addListenerToAddPlant(buttonAdd);
+
+        setBottomNavigation(this);
     }
 
-    private void addListenerToAddPlant(Button button){
-        button.setOnClickListener(new View.OnClickListener() {
+
+    public void setBottomNavigation(Activity activity){
+        BottomNavigationView navigationView = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddPlantActivity.class);
-                startActivity(intent);
-            }
-        });
-    }*/
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Fragment selectedFragment = null;
+                switch (item.getItemId()) {
+                    case R.id.page_1:
+                        selectedFragment = new FindPlantActivity();
+                        break;
+                    case R.id.page_2:
+                        selectedFragment = new AddPlantActivity();
+                        break;
+
+                }
+                // It will help to replace the
+                // one fragment to other.
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+                return false;
+            }});
+
+    }
+
 
 }

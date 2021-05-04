@@ -1,8 +1,12 @@
 package edu.polytech.si3.ihm.plantish;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,34 +34,44 @@ public class UpdatePlantActivity extends PlantActivity {
 
     private int pos;
     private Post post;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.pos = getArguments().getInt("Position", 0);
+        View view = inflater.inflate(R.layout.update_plant, container, false);
+        //Exemple d'instanciation d'éléments graphiques. Ils devraient être ceux de votre activité.
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        return view;
+    }
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_plant);
-        org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+
+    private Context ctx ;
+    public void onActivityCreated(Bundle savedInstanceState) {
+        ctx = getActivity();
+        v = getView();
+
+        super.onActivityCreated(savedInstanceState);
+
+        org.osmdroid.config.Configuration.getInstance().load(ctx.getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext()));
 
         this.user = Session.getInstance().getUser();
-        this.pos = getIntent().getIntExtra("Position", 0);
+
 
         this.post = Session.getUserPost(pos);
 
         //DATE
         // initiate the date picker and a button
-        date = (EditText) findViewById(R.id.date);
+        date = (EditText) v.findViewById(R.id.date);
         // perform click event on edit text
         setCalendar();
         date.setText(post.getDate().getDay()+"/"+post.getDate().getMonth()+"/"+post.getDate().getYear());
 
         //** Description
-        this.description = (EditText) findViewById(R.id.editText2);
+        this.description = (EditText) v.findViewById(R.id.editText2);
         this.description.setText(post.getPlant().getDescription());
 
         //** Spinner
-        this.spinnerType = (Spinner) findViewById(R.id.spinner);
+        this.spinnerType = (Spinner) v.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx,
                 R.array.type_plant, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,9 +81,9 @@ public class UpdatePlantActivity extends PlantActivity {
 
 
 
-        this.spinnerFamily = (Spinner) findViewById(R.id.spinner2);
+        this.spinnerFamily = (Spinner) v.findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(ctx,
                 R.array.familybush, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -79,7 +93,7 @@ public class UpdatePlantActivity extends PlantActivity {
         //**
 
         //** Camera
-        this.imageView = (ImageView) findViewById(R.id.imageView);
+        this.imageView = (ImageView) v.findViewById(R.id.imageView);
         bitmap = post.getImage();
         this.imageView.setImageBitmap(bitmap);
         cameraButton();
@@ -95,7 +109,7 @@ public class UpdatePlantActivity extends PlantActivity {
             initializeMap(position);
 
         // Add button
-        Button addButton = (Button) findViewById(R.id.button);
+        Button addButton = (Button) v.findViewById(R.id.button);
         addPlant(addButton);
 
     }
@@ -136,7 +150,7 @@ public class UpdatePlantActivity extends PlantActivity {
                 Session.deletePost(post);
                 Session.updatePost(pos, post);
 
-                Intent intent = new Intent(UpdatePlantActivity.this, MyPlantsActivity.class);
+                Intent intent = new Intent(ctx, MyPlantsActivity.class);
                 startActivity(intent);
 
             }

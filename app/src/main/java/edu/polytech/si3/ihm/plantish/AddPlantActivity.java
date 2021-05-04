@@ -1,16 +1,20 @@
 package edu.polytech.si3.ihm.plantish;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.preference.PreferenceManager;
@@ -35,31 +39,39 @@ import edu.polytech.si3.ihm.plantish.user.User;
 
 public class AddPlantActivity extends PlantActivity {
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.add_plant, container, false);
+        //Exemple d'instanciation d'éléments graphiques. Ils devraient être ceux de votre activité.
+
+        return view;
+    }
 
 
+    private Context ctx ;
+    public void onActivityCreated(Bundle savedInstanceState) {
+        ctx = getActivity();
+        v = getView();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_plant);
-        org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        org.osmdroid.config.Configuration.getInstance().load(ctx.getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext()));
 
         this.user = Session.getInstance().getUser();
 
         //DATE
         // initiate the date picker and a button
-        date = (EditText) findViewById(R.id.date);
+        date = (EditText) getView().findViewById(R.id.date);
         // perform click event on edit text
         setCalendar();
 
         //** Description
-        this.description = (EditText) findViewById(R.id.editText2);
+        this.description = (EditText)  v.findViewById(R.id.editText2);
 
         //** Spinner
-        this.spinnerType = (Spinner) findViewById(R.id.spinner);
+        this.spinnerType = (Spinner) v.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ctx,
                 R.array.type_plant, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -68,9 +80,9 @@ public class AddPlantActivity extends PlantActivity {
 
 
 
-        this.spinnerFamily = (Spinner) findViewById(R.id.spinner2);
+        this.spinnerFamily = (Spinner) v.findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(ctx,
                getResource(), android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -81,7 +93,7 @@ public class AddPlantActivity extends PlantActivity {
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(AddPlantActivity.this,
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(ctx,
                         getResource(), android.R.layout.simple_spinner_item);
                 // Specify the layout to use when the list of choices appears
                 adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,13 +113,13 @@ public class AddPlantActivity extends PlantActivity {
         // Apply the adapter to the spinner
         spinnerFamily.setAdapter(adapter2);
         //** Camera
-        this.imageView = (ImageView) findViewById(R.id.imageView);
+        this.imageView = (ImageView) v.findViewById(R.id.imageView);
         cameraButton();
         galleryButton();
         //**
 
         //**  Location
-        position = MyLocationListener.getLocation(this);
+        position = MyLocationListener.getLocation(this.getActivity());
         //**
 
         //** Address
@@ -119,7 +131,7 @@ public class AddPlantActivity extends PlantActivity {
             initializeMap(position);
 
         // Add button
-        Button addButton = (Button) findViewById(R.id.button);
+        Button addButton = (Button) v.findViewById(R.id.button);
         addPlant(addButton);
 
     }
@@ -157,7 +169,7 @@ public class AddPlantActivity extends PlantActivity {
                 else
                     post = plantFactory.build(user, datePost, bitmap, plant);
 
-                Intent intent = new Intent(AddPlantActivity.this, MyPlantsActivity.class);
+                Intent intent = new Intent(getActivity(), MyPlantsActivity.class);
                 startActivity(intent);
 
             }

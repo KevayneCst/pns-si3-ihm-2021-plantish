@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -53,7 +55,7 @@ import java.util.Locale;
 import edu.polytech.si3.ihm.plantish.plants.Plant;
 import edu.polytech.si3.ihm.plantish.user.User;
 
-public abstract class PlantActivity extends AppCompatActivity {
+public abstract class PlantActivity extends Fragment {
 
     EditText date;
     EditText description;
@@ -61,7 +63,7 @@ public abstract class PlantActivity extends AppCompatActivity {
     Spinner spinnerFamily;
     Bitmap bitmap;
     User user;
-
+    View v;
     DatePickerDialog datePickerDialog;
     ImageButton imageButton;
     static final int CAMERA_REQUEST = 1888;
@@ -71,6 +73,8 @@ public abstract class PlantActivity extends AppCompatActivity {
     GeoPoint position;
     MapView map;
     protected static final int DEFAULT_INACTIVITY_DELAY_IN_MILLISECS = 1 ;
+
+
 
 
     int getPositionStringInArrayRes(int id, String string){
@@ -92,7 +96,7 @@ public abstract class PlantActivity extends AppCompatActivity {
     void setLocationOnEditText(){
         Geocoder geocoder;
         List<Address> addresses = null;
-        geocoder = new Geocoder(this, Locale.getDefault());
+        geocoder = new Geocoder(v.getContext(), Locale.getDefault());
 
         try {
             addresses = geocoder.getFromLocation(position.getLatitude(), position.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
@@ -102,14 +106,14 @@ public abstract class PlantActivity extends AppCompatActivity {
 
         String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
-        EditText editAddress = (EditText) findViewById(R.id.editTextAdress);
+        EditText editAddress = (EditText) v.findViewById(R.id.editTextAdress);
         editAddress.setText(address);
 
         editAddress.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String string = editAddress.getText().toString();
-                LatLng latlngLocation = PlantActivity.this.getLocationFromAddress(PlantActivity.this, string);
+                LatLng latlngLocation = PlantActivity.this.getLocationFromAddress(v.getContext(), string);
                 position.setLatitude(latlngLocation.latitude);
                 position.setLongitude(latlngLocation.longitude);
                 initializeMap(position);
@@ -130,7 +134,7 @@ public abstract class PlantActivity extends AppCompatActivity {
     }
 
     void initializeMap(GeoPoint position){
-        map = findViewById(R.id.mapObject1);
+        map = v.findViewById(R.id.mapObject1);
         map.getOverlays().clear();
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setMultiTouchControls(true);
@@ -207,7 +211,7 @@ public abstract class PlantActivity extends AppCompatActivity {
         home.setMarker(dd);
         marqueurs.add(home);
 
-        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(getApplicationContext(), marqueurs, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(v.getContext().getApplicationContext(), marqueurs, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
                 return true; // Pour qu'il réagisse quand j'ai cliqué dessus
@@ -219,7 +223,7 @@ public abstract class PlantActivity extends AppCompatActivity {
             }
         });
 
-        MapOverlay movl = new MapOverlay(this);
+        MapOverlay movl = new MapOverlay(v.getContext());
         map.getOverlays().add(movl);
 
         itemizedOverlayWithFocus.setFocusItemsOnTap(true);
@@ -252,7 +256,7 @@ public abstract class PlantActivity extends AppCompatActivity {
     }
 
     void galleryButton(){
-        imageButton = (ImageButton) findViewById(R.id.galleryBtn);
+        imageButton = (ImageButton) v.findViewById(R.id.galleryBtn);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,11 +269,11 @@ public abstract class PlantActivity extends AppCompatActivity {
 
 
     void cameraButton(){
-        imageButton = (ImageButton) findViewById(R.id.cameraBtn);
+        imageButton = (ImageButton) v.findViewById(R.id.cameraBtn);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (v.getContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
                 } else {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -289,7 +293,7 @@ public abstract class PlantActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
-                datePickerDialog = new DatePickerDialog(PlantActivity.this,
+                datePickerDialog = new DatePickerDialog(v.getContext(),
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -313,27 +317,27 @@ public abstract class PlantActivity extends AppCompatActivity {
         {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
             else
             {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK)
             if (requestCode == GALLERY_REQUEST) {
                 Uri selectedImage = data.getData();
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    bitmap = MediaStore.Images.Media.getBitmap(v.getContext().getContentResolver(), selectedImage);
                     imageView.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     Log.i("TAG", "Some exception " + e);
