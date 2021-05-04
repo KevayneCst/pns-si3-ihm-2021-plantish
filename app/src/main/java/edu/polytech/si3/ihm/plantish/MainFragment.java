@@ -21,7 +21,7 @@ public class MainFragment extends Fragment {
     private ImageButton infoButton;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_fragment, container, false);
+        View view = inflater.inflate(R.layout.old_main_fragment, container, false);
         //Exemple d'instanciation d'éléments graphiques. Ils devraient être ceux de votre activité.
 
         return view;
