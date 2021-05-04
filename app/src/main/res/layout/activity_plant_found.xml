@@ -10,10 +10,14 @@
         android:id="@+id/plantFoundLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="TextView"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Identifier votre plante"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,141 +25,39 @@
         android:id="@+id/plantFoundPicture"
         android:layout_width="315dp"
         android:layout_height="307dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantFoundLabel"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/plantFoundTypeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="28dp"
-        android:text="Type"
-        android:textStyle="bold"
+
+    <Button
+        android:id="@+id/savePlantButton"
+        android:layout_width="221dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="47dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="Sauvgarder la plante"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/menuButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantFoundPicture" />
 
-    <TextView
-        android:id="@+id/plantFoundType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="221dp"
+        android:layout_height="67dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="Retour au menu principal"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundTypeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundPicture" />
-
-    <TextView
-        android:id="@+id/plantFoundColorTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
-        android:text="Couleur"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundTypeTitle" />
+        app:layout_constraintTop_toBottomOf="@id/savePlantButton" />
 
-    <TextView
-        android:id="@+id/plantFoundColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundColorTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundType" />
 
-    <TextView
-        android:id="@+id/plantFoundSeasonTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
-        android:text="Période de floraison"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundColorTitle" />
-
-    <TextView
-        android:id="@+id/plantFoundSeason"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundSeasonTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundColor" />
-
-    <TextView
-        android:id="@+id/plantFoundSunTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
-        android:text="Exposition au soleil"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundSeasonTitle" />
-
-    <TextView
-        android:id="@+id/plantFoundSun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.259"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundSunTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundSeason" />
-
-    <TextView
-        android:id="@+id/plantFoundShapeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
-        android:text="Forme des feuilles"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundSunTitle" />
-
-    <TextView
-        android:id="@+id/plantFoundShape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundShapeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundSun" />
-
-    <TextView
-        android:id="@+id/plantFoundLayoutTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="20dp"
-        android:text="Disposition des feuilles"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundShapeTitle" />
-
-    <TextView
-        android:id="@+id/plantFoundLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toEndOf="@+id/plantFoundLayoutTitle"
-        app:layout_constraintTop_toBottomOf="@+id/plantFoundShape" />
 </androidx.constraintlayout.widget.ConstraintLayout>

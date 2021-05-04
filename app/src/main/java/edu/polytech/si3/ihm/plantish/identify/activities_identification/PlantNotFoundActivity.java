@@ -20,7 +20,7 @@ public class PlantNotFoundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_not_found);
         askCommunityButton =  findViewById(R.id.askCommunityButton);
-        homeButton = findViewById(R.id.homeButton);
+        homeButton = findViewById(R.id.mainButton);
         askCommunityButton.setOnClickListener(click -> onClickAskCommunityButton());
         homeButton.setOnClickListener(click -> onClickHomeButton());
     }

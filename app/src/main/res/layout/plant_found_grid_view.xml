@@ -1,23 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d1d1d1">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <GridView
+    <TextView
+        android:id="@+id/identifyYourPlantText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:text="Identifier votre plante"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/numberOfPlantsGridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X plantes correspondent à ces critères"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/identifyYourPlantText" />
+
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/plantFoundGridView"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:columnWidth="100dp"
-        android:gravity="center|bottom"
-        android:horizontalSpacing="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:numColumns="3"
-        android:stretchMode="spacingWidth"
-        android:verticalSpacing="20dp"
-        android:visibility="visible"
-        />
-</FrameLayout>
+        android:layout_height="350dp"
+        android:layout_marginTop="15dp"
+        android:background="#d1d1d1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfPlantsGridView">
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/plantFoundGridView"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:columnWidth="100dp"
+            android:gravity="center|bottom"
+            android:horizontalSpacing="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:numColumns="3"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="20dp"
+            android:visibility="visible"
+            />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/notMyPLantButtonGridView"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Ce n'est pas ma plante"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <Button
+        android:id="@+id/mainMenuButtonGridView"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="Retour au menu principal"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notMyPLantButtonGridView"
+        app:layout_constraintVertical_bias="0.236" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

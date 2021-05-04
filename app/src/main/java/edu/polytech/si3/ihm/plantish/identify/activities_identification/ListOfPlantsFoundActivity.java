@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +22,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.polytech.si3.ihm.plantish.MainActivity;
 import edu.polytech.si3.ihm.plantish.R;
+import edu.polytech.si3.ihm.plantish.identify.DataLoader;
 import edu.polytech.si3.ihm.plantish.identify.PlantFound;
 import edu.polytech.si3.ihm.plantish.identify.adapters_identification.GridViewPlantFoundAdapter;
 import edu.polytech.si3.ihm.plantish.identify.adapters_identification.ListViewPlantFoundAdapter;
@@ -39,6 +43,12 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
     private ListViewPlantFoundAdapter listViewAdapter;
     private GridViewPlantFoundAdapter gridViewAdapter;
     private List<PlantFound> plantFoundList;
+    private TextView numberOfPlantsListView;
+    private TextView numberOfPlantsGridView;
+    private Button notMyPLantButtonListView;
+    private Button notMyPLantButtonGridView;
+    private Button mainMenuButtonListView;
+    private Button mainMenuButtonGridView;
     private int currentViewMode = 0;
     private String plants;
 
@@ -59,6 +69,14 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
         listView = findViewById(R.id.plantFoundListView);
         gridView = findViewById(R.id.plantFoundGridView);
 
+        //get widgets
+        numberOfPlantsListView = findViewById(R.id.numberOfPlantsListView);
+        numberOfPlantsGridView = findViewById(R.id.numberOfPlantsGridView);
+        notMyPLantButtonListView = findViewById(R.id.notMyPLantButtonListView);
+        notMyPLantButtonGridView = findViewById(R.id.notMyPLantButtonGridView);
+        mainMenuButtonListView = findViewById(R.id.mainMenuButtonListView);
+        mainMenuButtonGridView = findViewById(R.id.mainMenuButtonGridView);
+
         setPlants();
 
         //get list of found plants
@@ -77,9 +95,36 @@ public class ListOfPlantsFoundActivity extends AppCompatActivity {
 
         switchView();
 
+        setNumberOfPlants();
+        notMyPLantButtonListView.setOnClickListener(click -> goToNotFoundActivity());
+        notMyPLantButtonGridView.setOnClickListener(click -> goToNotFoundActivity());
+        mainMenuButtonListView.setOnClickListener(click -> goToMainActivity());
+        mainMenuButtonGridView.setOnClickListener(click -> goToMainActivity());
+
     }
 
-    public void setPlants() {
+    private void setNumberOfPlants(){
+        String textToBeSet;
+        int numberOfPlantsFound = 1;
+        try {
+            numberOfPlantsFound = DataLoader.getNumberOfPlantsFromJsonString(plants);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        textToBeSet = (numberOfPlantsFound==1) ? "Une plante correspond à ces critères" : numberOfPlantsFound+" plantes correspondent à ces critères";
+        numberOfPlantsListView.setText(textToBeSet);
+        numberOfPlantsGridView.setText(textToBeSet);
+    }
+
+    private void goToMainActivity(){
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    private void goToNotFoundActivity(){
+        startActivity(new Intent(getApplicationContext(), PlantNotFoundActivity.class));
+    }
+
+    private void setPlants() {
         plants = getIntent().getStringExtra(FILTERED_PLANTS);
     }
 

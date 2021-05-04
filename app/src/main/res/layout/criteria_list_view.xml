@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/criterionLabelListView"
+        android:id="@+id/numberOfPlantsListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Criterion Label"
@@ -40,7 +40,7 @@
         android:background="#d1d1d1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/criterionLabelListView">
+        app:layout_constraintTop_toBottomOf="@+id/numberOfPlantsListView">
 
         <ListView
             android:id="@+id/listView"
@@ -57,24 +57,24 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/iDontKnowButtonListView"
+        android:id="@+id/notMyPLantButtonListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Je ne sais pas"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@id/plantFoundButtonListView"
+        app:layout_constraintBottom_toTopOf="@id/mainMenuButtonListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
-        android:id="@+id/plantFoundButtonListView"
+        android:id="@+id/mainMenuButtonListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="x plantes trouvées"
-        app:layout_constraintTop_toBottomOf="@+id/iDontKnowButtonListView"
+        app:layout_constraintTop_toBottomOf="@+id/notMyPLantButtonListView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +89,7 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iDontKnowButtonListView"
+        app:layout_constraintStart_toEndOf="@+id/notMyPLantButtonListView"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         android:backgroundTint="@android:color/holo_red_dark"
         app:layout_constraintVertical_bias="0.353" />

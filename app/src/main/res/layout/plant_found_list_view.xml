@@ -21,12 +21,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/criterionLabelListView"
+        android:id="@+id/numberOfPlantsListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Criterion Label"
+        android:text="X plantes correspondent à ces critères"
         android:layout_marginTop="8dp"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_green_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="25sp"
@@ -42,7 +44,7 @@
         android:background="#d1d1d1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/criterionLabelListView">
+        app:layout_constraintTop_toBottomOf="@+id/numberOfPlantsListView">
 
         <ListView
             android:layout_width="match_parent"
@@ -58,27 +60,33 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/iDontKnowButtonListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Je ne sais pas"
+        android:id="@+id/notMyPLantButtonListView"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Ce n'est pas ma plante"
         android:textAllCaps="false"
-        android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toTopOf="@id/plantFoundButtonListView"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
-        android:id="@+id/plantFoundButtonListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="x plantes trouvées"
-        app:layout_constraintTop_toBottomOf="@+id/iDontKnowButtonListView"
+        android:id="@+id/mainMenuButtonListView"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="Retour au menu principal"
+        android:textAllCaps="false"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notMyPLantButtonListView"
+        app:layout_constraintVertical_bias="0.236" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

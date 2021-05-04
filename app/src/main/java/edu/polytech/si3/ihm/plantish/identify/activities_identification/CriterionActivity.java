@@ -90,11 +90,11 @@ public abstract class CriterionActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         gridView = findViewById(R.id.gridview);
 
-        activityTitleListView = findViewById(R.id.criterionLabelListView);
+        activityTitleListView = findViewById(R.id.numberOfPlantsListView);
         activityTitleGridView = findViewById(R.id.criterionLabelGridView);
-        iDontKnowButtonListView = findViewById(R.id.iDontKnowButtonListView);
+        iDontKnowButtonListView = findViewById(R.id.notMyPLantButtonListView);
         iDontKnowButtonGridView = findViewById(R.id.iDontKnowButtonGridView);
-        plantFoundButtonListView = findViewById(R.id.plantFoundButtonListView);
+        plantFoundButtonListView = findViewById(R.id.mainMenuButtonListView);
         plantFoundButtonGridView = findViewById(R.id.plantFoundButtonGridView);
         cancelButtonListView = findViewById(R.id.cancelActionListView);
         cancelButtonGridView = findViewById(R.id.cancelActionGridView);
@@ -235,7 +235,7 @@ public abstract class CriterionActivity extends AppCompatActivity {
     }
 
     protected void onClickIDontKnowButton(){
-        startNextActivity();
+        startNextActivity(plants);
         finish();
     }
 
@@ -265,12 +265,11 @@ public abstract class CriterionActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             filteredPlants = intent.getStringExtra(FILTERED_PLANTS_SERVICE);
             System.out.println(filteredPlants);
-            startNextActivity();
+            startNextActivity(filteredPlants);
         }
     }
 
-    public void startNextActivity(){
-        if(filteredPlants==null) return;
+    public void startNextActivity(String filteredPlants){
         try {
             if (DataLoader.getNumberOfPlantsFromJsonString(filteredPlants)>0){
                 intentToNextActivity.putExtra(FILTERED_PLANTS, filteredPlants);

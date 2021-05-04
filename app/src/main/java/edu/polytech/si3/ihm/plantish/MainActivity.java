@@ -2,12 +2,14 @@ package edu.polytech.si3.ihm.plantish;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
 import edu.polytech.si3.ihm.plantish.user.User;
 
@@ -20,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
+        startActivity(new Intent(this, PlantTypeActivity.class));
+    }
 
-        session = Session.getInstance();
+       /* session = Session.getInstance();
         session.setUser(new User("Emilie"));
 
         setContentView(R.layout.activity_main);
@@ -37,6 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }*/
 
 }
