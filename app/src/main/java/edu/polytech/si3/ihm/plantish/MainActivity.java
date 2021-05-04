@@ -3,6 +3,8 @@ package edu.polytech.si3.ihm.plantish;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +17,8 @@ import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import edu.polytech.si3.ihm.plantish.community.FacebookFeed;
+import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 import edu.polytech.si3.ihm.plantish.find.FindPlantActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
@@ -62,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.page_3:
                         selectedFragment = new PlantTypeActivity();
                         break;
+                    case R.id.page_4:
+                        selectedFragment = new LoginActivity();
+                        break;
     
                 }
+
+                item.setChecked(true);
                 // It will help to replace the
                 // one fragment to other.
                 getSupportFragmentManager()
@@ -73,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }});
     
+    }
+
+    public static void setMainFragment(FragmentManager fragmentManager){
+        MainFragment mainFragment = new MainFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, mainFragment)
+                .commit();
     }
 
 

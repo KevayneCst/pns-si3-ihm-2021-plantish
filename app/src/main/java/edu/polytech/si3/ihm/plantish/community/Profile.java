@@ -2,17 +2,24 @@ package edu.polytech.si3.ihm.plantish.community;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -23,26 +30,39 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.polytech.si3.ihm.plantish.R;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends Fragment {
 
     CircleImageView imgUsr;
     TextView username;
     Button history;
+    private Context ctx ;
+    private View view;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_profile, container, false);
+
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        imgUsr=findViewById(R.id.image_user);
-        username=findViewById(R.id.username);
-        history=findViewById(R.id.profile_btn);
+        imgUsr= view.findViewById(R.id.image_user);
+        username= view.findViewById(R.id.username);
+        history= view.findViewById(R.id.profile_btn);
         getUserData();
     }
 
 
     public void calendar(View v){
-        Intent intent = new Intent(Profile.this,HitoriqueIncidents.class);
-        startActivity(intent);
+        HitoriqueIncidents hitoriqueIncidents = new HitoriqueIncidents();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, hitoriqueIncidents);
+        fragmentTransaction.commit();
     }
 
     public void getUserData(){
@@ -71,7 +91,11 @@ public class Profile extends AppCompatActivity {
     }
 
     public void previous(View v){
-        Intent intent = new Intent(Profile.this, LoginActivity.class);
-        startActivity(intent);
+        LoginActivity loginActivity = new LoginActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, loginActivity);
+        fragmentTransaction.commit();
+
     }
 }

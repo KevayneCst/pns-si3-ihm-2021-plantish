@@ -1,15 +1,20 @@
 package edu.polytech.si3.ihm.plantish;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -28,40 +33,50 @@ import java.util.Locale;
 import edu.polytech.si3.ihm.plantish.posts.Post;
 import edu.polytech.si3.ihm.plantish.user.Session;
 
-public class PostPlantActivity extends AppCompatActivity {
+public class PostPlantActivity extends Fragment {
 
     Post post;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private Context ctx ;
+    private View view;
 
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_plant, container, false);
+
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plant);
-
-        int pos = getIntent().getIntExtra("Position", 0);
+        Bundle bundle = this.getArguments();
+        int pos = bundle.getInt("position", 0);
         this.post = Session.getPost(pos);
 
-        TextView family = (TextView) findViewById(R.id.family);
+        TextView family = (TextView) view.findViewById(R.id.family);
         family.setText(post.getPlant().getFamily());
 
-        TextView type = (TextView) findViewById(R.id.type);
+        TextView type = (TextView) view.findViewById(R.id.type);
         type.setText(PlantActivity.englishToFrench(post.getPlant().getTYPE()));
 
-        TextView userText = (TextView) findViewById(R.id.user);
+        TextView userText = (TextView) view.findViewById(R.id.user);
         userText.setText("Par "+this.post.getUser().getName());
 
-        TextView date = (TextView) findViewById(R.id.date);
+        TextView date = (TextView) view.findViewById(R.id.date);
         Date date1 = this.post.getDate();
         date.setText("Le "+date1.getDay()+"/"+date1.getMonth()+date1.getYear());
 
-        TextView description = (TextView) findViewById(R.id.description);
+        TextView description = (TextView) view.findViewById(R.id.description);
         description.setText("\""+post.getPlant().getDescription()+"\"");
 
-        TextView address = (TextView) findViewById(R.id.adresse);
+        TextView address = (TextView) view.findViewById(R.id.adresse);
         GeoPoint position = this.post.getPlant().getPosition();
         Geocoder geocoder;
         List<Address> addresses = null;
-        geocoder = new Geocoder(this, Locale.getDefault());
+        geocoder = new Geocoder(ctx, Locale.getDefault());
 
         try {
             addresses = geocoder.getFromLocation(position.getLatitude(), position.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
@@ -73,10 +88,10 @@ public class PostPlantActivity extends AppCompatActivity {
 
         address.setText(addressFound);
 
-        ImageView image = (ImageView) findViewById(R.id.imageView);
+        ImageView image = (ImageView) view.findViewById(R.id.imageView);
         image.setImageBitmap(this.post.getImage());
 
-        MapView map = findViewById(R.id.mapPlant);
+        MapView map = view.findViewById(R.id.mapPlant);
         map.getOverlays().clear();
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setMultiTouchControls(true);
@@ -93,7 +108,7 @@ public class PostPlantActivity extends AppCompatActivity {
         home.setMarker(dd);
         marqueurs.add(home);
 
-        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(getApplicationContext(), marqueurs, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(ctx.getApplicationContext(), marqueurs, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
                 return true; // Pour qu'il réagisse quand j'ai cliqué dessus

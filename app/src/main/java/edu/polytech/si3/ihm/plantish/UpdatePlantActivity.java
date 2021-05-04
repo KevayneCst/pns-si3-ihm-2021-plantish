@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import java.util.Date;
@@ -150,8 +152,11 @@ public class UpdatePlantActivity extends PlantActivity {
                 Session.deletePost(post);
                 Session.updatePost(pos, post);
 
-                Intent intent = new Intent(ctx, MyPlantsActivity.class);
-                startActivity(intent);
+                MyPlantsActivity myPlantsActivity = new MyPlantsActivity();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
+                fragmentTransaction.commit();
 
             }
         });

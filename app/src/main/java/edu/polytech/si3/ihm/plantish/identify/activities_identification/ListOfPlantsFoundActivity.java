@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,6 +92,12 @@ public class ListOfPlantsFoundActivity extends Fragment {
         setPlants();
 
         //get list of found plants
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            plants = bundle.getString(FILTERED_PLANTS, "");
+        }
+
         try {
             getPlantFoundList();
         } catch (JSONException e) {
@@ -127,7 +136,7 @@ public class ListOfPlantsFoundActivity extends Fragment {
     }
 
     private void goToMainActivity(){
-        startActivity(new Intent(ctx.getApplicationContext(), MainActivity.class));
+        MainActivity.setMainFragment(((AppCompatActivity)ctx).getSupportFragmentManager());
     }
 
     private void goToNotFoundActivity(){
@@ -167,6 +176,7 @@ public class ListOfPlantsFoundActivity extends Fragment {
 
     public List<PlantFound> getPlantFoundList() throws JSONException {
         plantFoundList = new ArrayList<>();
+        Log.d("PLANTS", plants+" ");
         JSONObject obj = new JSONObject(plants);
         JSONArray jsonArray = obj.getJSONArray("Plants");
         for (int i = 0;i<jsonArray.length();i++){
@@ -180,9 +190,15 @@ public class ListOfPlantsFoundActivity extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //Do when user click to item
-            Intent intent = new Intent(ctx.getApplicationContext(), PlantFoundActivity.class);
-            intent.putExtra(PLANT_FOUND, plantFoundList.get(position));
-            startActivity(intent);
+            PlantFoundActivity plantFoundActivity = new PlantFoundActivity();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(PLANT_FOUND, plantFoundList.get(position));
+            plantFoundActivity.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, plantFoundActivity);
+            fragmentTransaction.commit();
+
         }
     };
 

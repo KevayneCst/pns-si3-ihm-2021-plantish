@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import org.osmdroid.util.GeoPoint;
@@ -24,6 +26,7 @@ import org.osmdroid.views.MapView;
 
 import java.util.Date;
 
+import edu.polytech.si3.ihm.plantish.find.FindPlantFilterActivity;
 import edu.polytech.si3.ihm.plantish.plants.BushFactory;
 import edu.polytech.si3.ihm.plantish.plants.FlowerFactory;
 import edu.polytech.si3.ihm.plantish.plants.Plant;
@@ -169,8 +172,11 @@ public class AddPlantActivity extends PlantActivity {
                 else
                     post = plantFactory.build(user, datePost, bitmap, plant);
 
-                Intent intent = new Intent(getActivity(), MyPlantsActivity.class);
-                startActivity(intent);
+                MyPlantsActivity myPlantsActivity = new MyPlantsActivity();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
+                fragmentTransaction.commit();
 
             }
         });

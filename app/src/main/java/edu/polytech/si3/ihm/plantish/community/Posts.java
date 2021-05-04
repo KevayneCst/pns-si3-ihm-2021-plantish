@@ -5,9 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,7 +19,9 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,7 +35,7 @@ import com.facebook.share.widget.ShareButton;
 
 import edu.polytech.si3.ihm.plantish.R;
 
-public class Posts extends AppCompatActivity {
+public class Posts extends Fragment {
 
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
@@ -41,15 +45,25 @@ public class Posts extends AppCompatActivity {
     Button addimagebutton;
     CallbackManager callbackManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posts);
+    private View view;
+    private Context ctx ;
 
-        incident=(ShareButton) findViewById(R.id.incident_button);
-        question=findViewById(R.id.question_button);
-        imageView=findViewById(R.id.image);
-        addimagebutton=findViewById(R.id.add_image);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_posts, container, false);
+
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
+        super.onCreate(savedInstanceState);
+
+        incident=(ShareButton) view.findViewById(R.id.incident_button);
+        question=view.findViewById(R.id.question_button);
+        imageView=view.findViewById(R.id.image);
+        addimagebutton=view.findViewById(R.id.add_image);
         callbackManager = CallbackManager.Factory.create();
         imageView.setImageResource(R.drawable.addimage);
 
@@ -72,8 +86,8 @@ public class Posts extends AppCompatActivity {
     }
 
     private void askCameraPermissions() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        if(ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(getActivity(),new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         }else {
             openCamera();
         }
@@ -86,7 +100,7 @@ public class Posts extends AppCompatActivity {
             if(grantResults.length > 0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
                 openCamera();
             }else {
-                Toast.makeText(this,"Camera require permission",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx,"Camera require permission",Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -97,12 +111,12 @@ public class Posts extends AppCompatActivity {
     }
 
     public void previous(View v){
-        Intent intent = new Intent(Posts.this, LoginActivity.class);
+        Intent intent = new Intent(ctx, LoginActivity.class);
         startActivity(intent);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
         if(requestCode == CAMERA_REQUEST_CODE){

@@ -54,7 +54,10 @@ public class PlantFoundActivity extends Fragment {
         savePlantButton = view.findViewById(R.id.savePlantButton);
         menuButton = view.findViewById(R.id.menuButton);
 
-        plantFound = getActivity().getIntent().getParcelableExtra(PLANT_FOUND);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            plantFound = bundle.getParcelable(PLANT_FOUND);
+        }
         setActivityWidgets();
 
     }
@@ -98,7 +101,8 @@ public class PlantFoundActivity extends Fragment {
     }
 
     private void goToMainActivity(){
-        startActivity(new Intent(ctx, MainActivity.class));
+        MainActivity.setMainFragment(((AppCompatActivity)ctx).getSupportFragmentManager());
+
     }
 
 }

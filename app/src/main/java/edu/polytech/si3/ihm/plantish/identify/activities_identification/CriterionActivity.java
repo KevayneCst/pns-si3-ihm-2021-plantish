@@ -272,7 +272,6 @@ public abstract class CriterionActivity extends Fragment {
      * We will never get 0 plants when triggering this function, this is why testing if plants are empty has been omitted
      */
     protected void onClickFoundPlantsButton(){
-
         ListOfPlantsFoundActivity listOfPlantsFoundActivity = new ListOfPlantsFoundActivity();
         Bundle bundle = new Bundle();
         bundle.putSerializable(FILTERED_PLANTS, plants);
@@ -281,8 +280,6 @@ public abstract class CriterionActivity extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, listOfPlantsFoundActivity);
         fragmentTransaction.commit();
-
-
     }
 
 
@@ -298,8 +295,7 @@ public abstract class CriterionActivity extends Fragment {
     }
 
     public void startNextActivity(String filteredPlants){
-
-
+        Log.d("FRAG", fragmentToNextActivity.toString());
         try {
             if (DataLoader.getNumberOfPlantsFromJsonString(filteredPlants)>0){
                 Bundle bundle = new Bundle();
@@ -312,7 +308,7 @@ public abstract class CriterionActivity extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        FragmentManager fragmentManager =  getChildFragmentManager();
+        FragmentManager fragmentManager = ((AppCompatActivity)ctx).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragmentToNextActivity);
         fragmentTransaction.commit();
@@ -356,6 +352,9 @@ public abstract class CriterionActivity extends Fragment {
         startActivity(new Intent(ctx, PlantTypeActivity.class));
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
 
 }

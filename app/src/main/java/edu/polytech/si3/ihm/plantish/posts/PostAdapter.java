@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,11 +16,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.polytech.si3.ihm.plantish.AddPlantActivity;
+import edu.polytech.si3.ihm.plantish.MainActivity;
 import edu.polytech.si3.ihm.plantish.MyPlantsActivity;
 import edu.polytech.si3.ihm.plantish.PlantActivity;
 import edu.polytech.si3.ihm.plantish.PostPlantActivity;
@@ -89,9 +94,15 @@ public class PostAdapter extends ArrayAdapter {
         Button updateBtn = (Button) row.findViewById(R.id.buttonEdit);
 
         updateBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(context, UpdatePlantActivity.class);
-            intent.putExtra("Position", position);
-            context.startActivity(intent);
+            UpdatePlantActivity myPlantsActivity = new UpdatePlantActivity();
+            Bundle bundle = new Bundle();
+            bundle.putInt("Position", position);
+            myPlantsActivity.setArguments(bundle);
+
+            FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
+            fragmentTransaction.commit();
         });
 
         Log.i("POSTADAPTER", posts.get(position).plant.getFamily());
@@ -100,9 +111,16 @@ public class PostAdapter extends ArrayAdapter {
         row.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(context, PostPlantActivity.class);
-                intent.putExtra("Position", position);
-                context.startActivity(intent);
+                PostPlantActivity myPlantsActivity = new PostPlantActivity();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Position", position);
+                myPlantsActivity.setArguments(bundle);
+
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
+                fragmentTransaction.commit();
+
                 return false;
             }
         });

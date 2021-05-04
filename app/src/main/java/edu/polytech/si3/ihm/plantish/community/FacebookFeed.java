@@ -3,15 +3,20 @@ package edu.polytech.si3.ihm.plantish.community;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -20,11 +25,7 @@ import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.android.gms.common.internal.service.Common;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +42,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.polytech.si3.ihm.plantish.R;
 
-public class  FacebookFeed extends AppCompatActivity {
+public class  FacebookFeed extends Fragment {
 
     TextView authorNameTV;
     CallbackManager callbackManager;
@@ -56,20 +57,31 @@ public class  FacebookFeed extends AppCompatActivity {
     CircleImageView authorImage;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private Context ctx ;
+    private View view;
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_facebook_feed, container, false);
+
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ctx = getActivity();
+        view = getView();
         super.onCreate(savedInstanceState);
         getPostsImage();
-        setContentView(R.layout.posts_feed);
-        authorNameTV=findViewById(R.id.idTVAuthorName);
-        recyclerView=findViewById(R.id.idRVInstaFeeds);
-        authorImage=findViewById(R.id.idCVAuthor);
+        authorNameTV=view.findViewById(R.id.idTVAuthorName);
+        recyclerView=view.findViewById(R.id.idRVInstaFeeds);
+        authorImage=view.findViewById(R.id.idCVAuthor);
         callbackManager = CallbackManager.Factory.create();
         getFacebookFeeds();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -107,10 +119,10 @@ public class  FacebookFeed extends AppCompatActivity {
                         } catch (JSONException | ParseException e) {
                             e.printStackTrace();
                         }
-                        FacebookFeedAdapter adapter = new FacebookFeedAdapter(feeds,FacebookFeed.this);
-                        RecyclerView instRV = findViewById(R.id.idRVInstaFeeds);
+                        FacebookFeedAdapter adapter = new FacebookFeedAdapter(feeds,ctx);
+                        RecyclerView instRV = view.findViewById(R.id.idRVInstaFeeds);
 
-                        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(FacebookFeed.this,RecyclerView.VERTICAL,false);
+                        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(ctx,RecyclerView.VERTICAL,false);
 
                         instRV.setLayoutManager(linearLayoutManager);
 
@@ -157,7 +169,7 @@ public class  FacebookFeed extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         imgPostLink.clear();
     }
