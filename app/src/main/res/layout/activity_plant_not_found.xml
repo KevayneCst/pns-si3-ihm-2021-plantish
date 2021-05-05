@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:gravity="center"
-        android:text="Désolé votre recherche n'a pas abouti. Vous serez notifier dès que notre base de données sera mise à jour."
+        android:text="Désolé votre recherche n'a pas abouti. Vous serez notifié dès que notre base de données sera mise à jour."
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         android:textSize="30sp"
