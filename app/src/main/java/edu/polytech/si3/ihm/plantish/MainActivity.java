@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         session.setUser(new User("Emilie"));
 
         setContentView(R.layout.activity_main);
+        MyLocationListener.getLocation(this);
 
         setBottomNavigation(this);
         getSupportFragmentManager()
