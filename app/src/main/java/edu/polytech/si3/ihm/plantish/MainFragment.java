@@ -1,6 +1,7 @@
 package edu.polytech.si3.ihm.plantish;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 
 public class MainFragment extends Fragment {
 
-    private ImageButton parametersButton;
-    private ImageButton userButton;
-    private ImageButton addButton;
-    private ImageButton searchButton;
-    private ImageButton communityButton;
-    private ImageButton libraryButton;
-    private ImageButton bugButton;
     private ImageButton infoButton;
+    private ImageButton loginButton;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.old_main_fragment, container, false);
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
         //Exemple d'instanciation d'éléments graphiques. Ils devraient être ceux de votre activité.
 
         return view;
@@ -35,58 +34,28 @@ public class MainFragment extends Fragment {
         ctx = getActivity();
         view = getView();
         //getting widgets
-        parametersButton = view.findViewById(R.id.mainParametersButton);
-        userButton = view.findViewById(R.id.mainUserButton);
-        addButton = view.findViewById(R.id.mainAddButton);
-        searchButton = view.findViewById(R.id.mainSearchButton);
-        communityButton = view.findViewById(R.id.mainCommunityButton);
-        libraryButton = view.findViewById(R.id.mainLibraryButton);
-        bugButton = view.findViewById(R.id.mainBugButton);
-        infoButton = view.findViewById(R.id.mainIButton);
+
+        infoButton = view.findViewById(R.id.mainInfoButton);
+        loginButton = view.findViewById(R.id.mainLoginButton);
 
         setOnClickButtons();
     }
 
     private void setOnClickButtons(){
-        parametersButton.setOnClickListener(click -> onClickParametersButton());
-        userButton.setOnClickListener(click -> onClickUserButton());
-        addButton.setOnClickListener(click -> onClickAddButton());
-        searchButton.setOnClickListener(click -> onClickSearchButton());
-        communityButton.setOnClickListener(click -> onClickCommunityButton());
-        libraryButton.setOnClickListener(click -> onClickLibraryButton());
-        bugButton.setOnClickListener(click -> onClickBugButton());
         infoButton.setOnClickListener(click -> onClickInfoButton());
+        loginButton.setOnClickListener(click -> onClickLoginButton());
     }
 
-    private void onClickParametersButton(){
-
-    }
-
-    private void onClickUserButton(){
-
-    }
-
-    private void onClickAddButton(){
-
-    }
-
-    private void onClickSearchButton(){
-
-    }
-
-    private void onClickCommunityButton(){
-
-    }
-
-    private void onClickLibraryButton(){
-
-    }
-
-    private void onClickBugButton(){
-
-    }
 
     private void onClickInfoButton(){
 
+    }
+
+    private void onClickLoginButton(){
+        LoginActivity login= new LoginActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, login);
+        fragmentTransaction.commit();
     }
 }
