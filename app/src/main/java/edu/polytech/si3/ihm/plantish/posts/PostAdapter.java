@@ -102,7 +102,7 @@ public class PostAdapter extends ArrayAdapter {
 
             FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity).addToBackStack( "tag" );
+            fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
             fragmentTransaction.commit();
         });
 
@@ -119,7 +119,7 @@ public class PostAdapter extends ArrayAdapter {
 
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity).addToBackStack( "tag" );
+                fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
                 fragmentTransaction.commit();
 
                 return false;

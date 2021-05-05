@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -57,7 +58,8 @@ public class PostPlantActivity extends Fragment {
         view = getView();
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        int pos = bundle.getInt("position", 0);
+        int pos = bundle.getInt("Position", 0);
+        Log.d("aa", "pas de bundle"+pos);
         this.post = Session.getPost(pos);
 
         TextView family = (TextView) view.findViewById(R.id.family);
@@ -134,7 +136,11 @@ public class PostPlantActivity extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                    getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    MyPlantsActivity myPlantsActivity = new MyPlantsActivity();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
+                    fragmentTransaction.commit();
                     return true;
                 }
                 return false;
