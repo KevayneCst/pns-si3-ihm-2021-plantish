@@ -1,10 +1,12 @@
 package edu.polytech.si3.ihm.plantish.identify.activities_identification;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +29,7 @@ import edu.polytech.si3.ihm.plantish.identify.DataLoader;
 import edu.polytech.si3.ihm.plantish.identify.PlantFound;
 
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANT_FOUND;
+import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria.TYPE;
 
 public class PlantFoundActivity extends Fragment {
 
@@ -67,7 +71,16 @@ public class PlantFoundActivity extends Fragment {
         DataLoader.setImageViewFromPath(plantFound.getPicture(),picture);
         savePlantButton.setOnClickListener(click -> {
             takeScreenshot();
-            Toast.makeText(ctx, "Votre plante a été sauvegardée dans la mémoire interne de votre appareil", Toast.LENGTH_LONG);
+            AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
+            alertDialog.setTitle("Succès");
+            alertDialog.setMessage("Votre plante a été sauvegardée dans la galerie de votre appareil");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         } );
         menuButton.setOnClickListener(click -> goToMainActivity());
     }
@@ -78,7 +91,7 @@ public class PlantFoundActivity extends Fragment {
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + plantFound.getLabel() + ".jpg";
 
             // create bitmap screen capture
             View v1 = getActivity().getWindow().getDecorView().getRootView();
@@ -91,6 +104,7 @@ public class PlantFoundActivity extends Fragment {
             FileOutputStream outputStream = new FileOutputStream(imageFile);
             int quality = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, "image", plantFound.getLabel());
             outputStream.flush();
             outputStream.close();
 
@@ -104,5 +118,7 @@ public class PlantFoundActivity extends Fragment {
         MainActivity.setMainFragment(((AppCompatActivity)ctx).getSupportFragmentManager());
 
     }
+
+
 
 }

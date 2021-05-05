@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import edu.polytech.si3.ihm.plantish.identify.adapters_identification.ListViewPl
 import static android.content.Context.MODE_PRIVATE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANT_FOUND;
+import static edu.polytech.si3.ihm.plantish.identify.Application.TAG;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_GRIDVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_LISTVIEW;
 
@@ -69,6 +71,8 @@ public class ListOfPlantsFoundActivity extends Fragment {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.activity_found_plants, container, false);
         ctx = getActivity();
+
+        setHasOptionsMenu(true);
 
         stubList = view.findViewById(R.id.stub_list);
         stubGrid = view.findViewById(R.id.stub_grid);
@@ -196,15 +200,16 @@ public class ListOfPlantsFoundActivity extends Fragment {
             plantFoundActivity.setArguments(bundle);
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, plantFoundActivity);
+            fragmentTransaction.replace(R.id.fragment_container, plantFoundActivity).addToBackStack(TAG);
             fragmentTransaction.commit();
 
         }
     };
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ctx.getMenuInflater().inflate(R.menu.main, menu);
-        return getActivity().onCreateOptionsMenu(menu);
+    @Override
+    public void  onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override

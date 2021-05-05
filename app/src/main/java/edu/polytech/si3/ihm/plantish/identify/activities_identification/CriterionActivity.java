@@ -10,6 +10,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ import org.json.JSONException;
 import java.util.List;
 
 import edu.polytech.si3.ihm.plantish.MainActivity;
+import edu.polytech.si3.ihm.plantish.MainFragment;
 import edu.polytech.si3.ihm.plantish.R;
+import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 import edu.polytech.si3.ihm.plantish.identify.Criterion;
 import edu.polytech.si3.ihm.plantish.identify.DataLoader;
 import edu.polytech.si3.ihm.plantish.identify.PlantFinderService;
@@ -46,6 +49,7 @@ import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS
 import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS_SERVICE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANTS;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANT_CRITERION_LABEL;
+import static edu.polytech.si3.ihm.plantish.identify.Application.TAG;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_GRIDVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_LISTVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria.TYPE;
@@ -85,6 +89,7 @@ public abstract class CriterionActivity extends Fragment {
         super.onCreate(savedInstanceState);
         ctx = getActivity();
         createActivity();
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -97,6 +102,8 @@ public abstract class CriterionActivity extends Fragment {
 
         stubList = view.findViewById(R.id.stub_list);
         stubGrid = view.findViewById(R.id.stub_grid);
+
+
 
         //Inflate ViewStub before get view
 
@@ -120,8 +127,6 @@ public abstract class CriterionActivity extends Fragment {
         SharedPreferences sharedPreferences = ctx.getSharedPreferences("ViewMode", MODE_PRIVATE);
         currentViewMode = sharedPreferences.getInt("currentViewMode", VIEW_MODE_LISTVIEW);//Default is view listview
         //Register item click
-
-
 
 
 
@@ -172,7 +177,7 @@ public abstract class CriterionActivity extends Fragment {
         Bundle bundle = this.getArguments();
 
         try {
-            plants = (plantCriteria.label.equals(TYPE.label)) ? DataLoader.getPlantsDataFromJson(ctx) : bundle.getString(FILTERED_PLANTS);
+            plants = (inTypeActivity()) ? DataLoader.getPlantsDataFromJson(ctx) : bundle.getString(FILTERED_PLANTS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -225,9 +230,10 @@ public abstract class CriterionActivity extends Fragment {
         }
     };
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getActivity().getMenuInflater().inflate(R.menu.main, menu);
-        return getActivity().onCreateOptionsMenu(menu);
+    @Override
+    public void  onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
@@ -311,12 +317,23 @@ public abstract class CriterionActivity extends Fragment {
         FragmentManager fragmentManager = ((AppCompatActivity)ctx).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragmentToNextActivity);
-        fragmentTransaction.commit();
+        //fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
 
     protected void onClickCancelButton(){
-        onBackPressed();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (inTypeActivity()){
+            MainFragment mainActivity = new MainFragment();
+            fragmentTransaction.replace(R.id.fragment_container, mainActivity);
+        }
+        else {
+            PlantTypeActivity plantTypeActivity = new PlantTypeActivity();
+            fragmentTransaction.replace(R.id.fragment_container, plantTypeActivity);
+        }
+        fragmentTransaction.commit();
     }
 
 
@@ -343,18 +360,19 @@ public abstract class CriterionActivity extends Fragment {
         switchView();
         setPlantFoundNumber();
         setButtons();
-
         super.onStart();
     }
 
+
     public void onBackPressed() {
-        if (plantCriteria.label.equals(TYPE.label)) startActivity(new Intent(ctx, MainActivity.class));
+        if (inTypeActivity()) startActivity(new Intent(ctx, MainActivity.class));
         startActivity(new Intent(ctx, PlantTypeActivity.class));
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        //No call for super(). Bug on API Level > 11.
+    private Boolean inTypeActivity(){
+        return (plantCriteria.label.equals(TYPE.label));
     }
+
+
 
 }

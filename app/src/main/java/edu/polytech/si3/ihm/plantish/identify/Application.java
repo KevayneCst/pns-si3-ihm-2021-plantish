@@ -8,6 +8,7 @@ public abstract class Application {
     public static final String LABEL = "label";
     public static final String DESCRIPTION = "description";
     public static final String PATH = "path";
+    public static final String TAG = "tag";
 
     public static final String PLANTS = "plants";
     public static final String PLANT_FOUND = "plantFound";

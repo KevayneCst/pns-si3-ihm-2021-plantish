@@ -24,6 +24,8 @@ import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTyp
 import edu.polytech.si3.ihm.plantish.user.Session;
 import edu.polytech.si3.ihm.plantish.user.User;
 
+import static edu.polytech.si3.ihm.plantish.identify.Application.TAG;
+
 public class MainActivity extends AppCompatActivity {
 
     public Session session;
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, selectedFragment)
+                        .addToBackStack(TAG)
                         .commit();
                 return false;
             }});
