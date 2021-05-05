@@ -90,6 +90,11 @@ public class LoginActivity extends Fragment {
         view = getView();
         super.onCreate(savedInstanceState);
 
+        txtTop.setVisibility(txtTop.INVISIBLE);
+        profileBtn.setVisibility(profileBtn.VISIBLE);
+        button.setVisibility(button.VISIBLE);
+        accessBtn.setVisibility(accessBtn.VISIBLE);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
