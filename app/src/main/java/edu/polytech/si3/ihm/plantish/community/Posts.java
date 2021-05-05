@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.Manifest;
@@ -43,6 +45,7 @@ public class Posts extends Fragment {
     ShareButton question;
     ImageView imageView;
     Button addimagebutton;
+    Button previous;
     CallbackManager callbackManager;
 
     private View view;
@@ -50,7 +53,6 @@ public class Posts extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_posts, container, false);
-
         return view;
     }
 
@@ -64,6 +66,7 @@ public class Posts extends Fragment {
         question=view.findViewById(R.id.question_button);
         imageView=view.findViewById(R.id.image);
         addimagebutton=view.findViewById(R.id.add_image);
+        previous=view.findViewById(R.id.previous);
         callbackManager = CallbackManager.Factory.create();
         imageView.setImageResource(R.drawable.addimage);
 
@@ -71,6 +74,17 @@ public class Posts extends Fragment {
             @Override
             public void onClick(View v) {
                 askCameraPermissions();
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity login= new LoginActivity();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, login);
+                fragmentTransaction.commit();
             }
         });
 
@@ -108,11 +122,6 @@ public class Posts extends Fragment {
     private void openCamera(){
         Intent camera =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera,CAMERA_REQUEST_CODE);
-    }
-
-    public void previous(View v){
-        Intent intent = new Intent(ctx, LoginActivity.class);
-        startActivity(intent);
     }
 
     @Override
