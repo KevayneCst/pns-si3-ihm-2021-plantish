@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.polytech.si3.ihm.plantish.community.FacebookFeed;
 import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 import edu.polytech.si3.ihm.plantish.find.FindPlantActivity;
+import edu.polytech.si3.ihm.plantish.identify.activities_identification.CriterionActivity;
+import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantNotFoundActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
 import edu.polytech.si3.ihm.plantish.user.User;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         session.setUser(new User("Emilie"));
 
         setContentView(R.layout.activity_main);
-        MyLocationListener.getLocation(this);
+//        MyLocationListener.getLocation(this);
 
         setBottomNavigation(this);
         getSupportFragmentManager()
@@ -103,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (f instanceof CriterionActivity || f instanceof PlantNotFoundActivity) {//the fragment on which you want to handle your back press
+            Log.i("BACK PRESSED", "BACK PRESSED");
+        }else{
+            super.onBackPressed();
+        }
     }
 
 }

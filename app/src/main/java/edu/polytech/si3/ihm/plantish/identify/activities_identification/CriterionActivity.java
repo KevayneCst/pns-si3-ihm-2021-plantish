@@ -364,14 +364,17 @@ public abstract class CriterionActivity extends Fragment {
     }
 
 
+/*
     public void onBackPressed() {
         if (inTypeActivity()) startActivity(new Intent(ctx, MainActivity.class));
         startActivity(new Intent(ctx, PlantTypeActivity.class));
     }
+*/
 
     private Boolean inTypeActivity(){
         return (plantCriteria.label.equals(TYPE.label));
     }
+
 
 
 
