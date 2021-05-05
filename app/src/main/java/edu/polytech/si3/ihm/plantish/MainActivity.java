@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
+                    case R.id.page_0:
+                        selectedFragment = new MainFragment();
+                        break;
                     case R.id.page_1:
                         selectedFragment = new FindPlantActivity();
                         break;
@@ -91,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        fragment.onActivityResult(requestCode, resultCode, data);
+    }
 
 }
 

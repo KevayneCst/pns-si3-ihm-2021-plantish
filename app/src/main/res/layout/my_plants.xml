@@ -8,7 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:text="Mes Plantes"
-        android:textSize="30sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
 
     <ListView
         android:id="@android:id/list"

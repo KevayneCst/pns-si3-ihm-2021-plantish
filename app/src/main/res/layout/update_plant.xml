@@ -20,8 +20,8 @@
 
             <TextView
                 android:id="@+id/textViewDate"
-                android:layout_width="134dp"
-                android:layout_height="36dp"
+                android:layout_width="65dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="88dp"
                 android:text="Date"
@@ -29,24 +29,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mapObject1" />
 
-            <EditText
+            <DatePicker
                 android:id="@+id/date"
-                android:layout_width="177dp"
-                android:layout_height="52dp"
+                android:layout_width="249dp"
+                android:layout_height="117dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="72dp"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
                 android:ems="10"
                 android:inputType="date"
                 app:layout_constraintLeft_toLeftOf="@+id/textViewDate"
                 app:layout_constraintStart_toEndOf="@+id/textViewDate"
                 app:layout_constraintTop_toBottomOf="@+id/mapObject1" />
 
+
             <TextView
                 android:id="@+id/textViewDate2"
                 android:layout_width="134dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="92dp"
                 android:text="Type de plante"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -167,8 +170,8 @@
                 android:layout_marginEnd="104dp"
                 android:shadowColor="#8BC34A"
                 android:text="Modifier votre plante"
-                android:textColor="#4CAF50"
-                android:textSize="24sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="35sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

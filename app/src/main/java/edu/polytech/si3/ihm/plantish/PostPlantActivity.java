@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import edu.polytech.si3.ihm.plantish.plants.Plant;
 import edu.polytech.si3.ihm.plantish.posts.Post;
 import edu.polytech.si3.ihm.plantish.user.Session;
 
@@ -67,7 +68,8 @@ public class PostPlantActivity extends Fragment {
 
         TextView date = (TextView) view.findViewById(R.id.date);
         Date date1 = this.post.getDate();
-        date.setText("Le "+date1.getDay()+"/"+date1.getMonth()+date1.getYear());
+        String[] string = PlantActivity.sdf.format(date1).split("/");
+        date.setText("Le "+string[0]+"/"+string[1]+"/"+string[2]);
 
         TextView description = (TextView) view.findViewById(R.id.description);
         description.setText("\""+post.getPlant().getDescription()+"\"");

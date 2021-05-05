@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import androidx.preference.PreferenceManager;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import edu.polytech.si3.ihm.plantish.find.FindPlantFilterActivity;
@@ -64,7 +66,7 @@ public class AddPlantActivity extends PlantActivity {
 
         //DATE
         // initiate the date picker and a button
-        date = (EditText) getView().findViewById(R.id.date);
+        date = (DatePicker) getView().findViewById(R.id.date);
         // perform click event on edit text
         setCalendar();
 
@@ -147,11 +149,14 @@ public class AddPlantActivity extends PlantActivity {
             @Override
             public void onClick(View v) {
                 Date datePost = new Date();
-                String dateString = AddPlantActivity.this.date.getText().toString();
+                DatePicker datePicker = AddPlantActivity.this.date;
+                String dateString = datePicker.getDayOfMonth()+"/"+(datePicker.getMonth()+1)+"/"+(datePicker.getYear());
 
-                datePost.setDate(Integer.parseInt(dateString.split("/")[0]));
-                datePost.setYear(Integer.parseInt(dateString.split("/")[2]));
-                datePost.setMonth(Integer.parseInt(dateString.split("/")[1]));
+                try {
+                    datePost = sdf.parse(dateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 String description = AddPlantActivity.this.description.getText().toString();
                 String type = AddPlantActivity.this.spinnerType.getSelectedItem().toString();

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,7 +69,7 @@ public class PostAdapter extends ArrayAdapter {
 
         textViewDescription.setText(description);
 
-        Button deleteBtn = (Button) row.findViewById(R.id.buttonDelete);
+        ImageButton deleteBtn = (ImageButton) row.findViewById(R.id.buttonDelete);
         deleteBtn.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setCancelable(true);
@@ -91,7 +92,7 @@ public class PostAdapter extends ArrayAdapter {
 
         });
 
-        Button updateBtn = (Button) row.findViewById(R.id.buttonEdit);
+        ImageButton updateBtn = (ImageButton) row.findViewById(R.id.buttonEdit);
 
         updateBtn.setOnClickListener(v -> {
             UpdatePlantActivity myPlantsActivity = new UpdatePlantActivity();

@@ -3,12 +3,14 @@ package edu.polytech.si3.ihm.plantish;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -17,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import edu.polytech.si3.ihm.plantish.plants.BushFactory;
@@ -61,10 +64,14 @@ public class UpdatePlantActivity extends PlantActivity {
 
         //DATE
         // initiate the date picker and a button
-        date = (EditText) v.findViewById(R.id.date);
+        date = (DatePicker) v.findViewById(R.id.date);
+        Date datePost = post.getDate();
+        Log.d("DATE", datePost.toString());
+        String[] string = sdf.format(datePost).split("/");
+        date.updateDate( Integer.parseInt(string[2]), Integer.parseInt(string[1])-1, Integer.parseInt(string[0]));
         // perform click event on edit text
-        setCalendar();
-        date.setText(post.getDate().getDay()+"/"+post.getDate().getMonth()+"/"+post.getDate().getYear());
+
+
 
         //** Description
         this.description = (EditText) v.findViewById(R.id.editText2);
@@ -123,11 +130,15 @@ public class UpdatePlantActivity extends PlantActivity {
             @Override
             public void onClick(View v) {
                 Date datePost = new Date();
-                String dateString = UpdatePlantActivity.this.date.getText().toString();
+                DatePicker datePicker = UpdatePlantActivity.this.date;
 
-                datePost.setDate(Integer.parseInt(dateString.split("/")[0]));
-                datePost.setYear(Integer.parseInt(dateString.split("/")[2]));
-                datePost.setMonth(Integer.parseInt(dateString.split("/")[1]));
+                String dateString = datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+1+"/"+datePicker.getYear();
+
+                try {
+                    datePost = sdf.parse(dateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 String description = UpdatePlantActivity.this.description.getText().toString();
                 String type = UpdatePlantActivity.this.spinnerType.getSelectedItem().toString();
