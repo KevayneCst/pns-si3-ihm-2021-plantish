@@ -46,9 +46,11 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +59,7 @@ import edu.polytech.si3.ihm.plantish.user.User;
 
 public abstract class PlantActivity extends Fragment {
 
-    EditText date;
+    DatePicker date;
     EditText description;
     Spinner spinnerType;
     Spinner spinnerFamily;
@@ -73,6 +75,7 @@ public abstract class PlantActivity extends Fragment {
     GeoPoint position;
     MapView map;
     protected static final int DEFAULT_INACTIVITY_DELAY_IN_MILLISECS = 1 ;
+    public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
 
@@ -288,10 +291,8 @@ public abstract class PlantActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 // calender class's instance and get current date , month and year from calender
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                Date dateCalendar = Calendar.getInstance().getTime();
+
                 // date picker dialog
                 datePickerDialog = new DatePickerDialog(v.getContext(),
                         new DatePickerDialog.OnDateSetListener() {
@@ -300,9 +301,11 @@ public abstract class PlantActivity extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                date.setText(String.format("%d/%d/%d", dayOfMonth, monthOfYear + 1, year));
+                                //String strDate = sdf.format(dateCalendar);
+                                //date.setText(strDate);
+
                             }
-                        }, mYear, mMonth, mDay);
+                        }, dateCalendar.getYear(), dateCalendar.getMonth(), dateCalendar.getDay());
                 datePickerDialog.show();
             }
         });

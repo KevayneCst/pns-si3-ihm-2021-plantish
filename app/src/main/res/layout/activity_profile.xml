@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:onClick="calendar"
         android:text="Agenda"
         android:visibility="visible" />
 

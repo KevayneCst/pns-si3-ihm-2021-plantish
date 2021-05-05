@@ -35,13 +35,13 @@ public class Profile extends Fragment {
     CircleImageView imgUsr;
     TextView username;
     Button history;
+    Button previous;
     private Context ctx ;
     private View view;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
-
         return view;
     }
 
@@ -52,18 +52,33 @@ public class Profile extends Fragment {
         super.onCreate(savedInstanceState);
         imgUsr= view.findViewById(R.id.image_user);
         username= view.findViewById(R.id.username);
+        previous=view.findViewById(R.id.previous);
         history= view.findViewById(R.id.profile_btn);
         getUserData();
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HitoriqueIncidents hitoriqueIncidents = new HitoriqueIncidents();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, hitoriqueIncidents);
+                fragmentTransaction.commit();
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity login= new LoginActivity();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, login);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
 
-    public void calendar(View v){
-        HitoriqueIncidents hitoriqueIncidents = new HitoriqueIncidents();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, hitoriqueIncidents);
-        fragmentTransaction.commit();
-    }
 
     public void getUserData(){
         ArrayList<FacebookModele> feeds = new ArrayList<>();

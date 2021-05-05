@@ -44,8 +44,6 @@ public class LoginActivity extends Fragment {
     private LoginButton loginButton;
     private Button accessBtn;
     private TextView txtTop;
-    ShareButton incident;
-    ShareButton question;
     Button button;
     Button profileBtn;
     private Context ctx ;
@@ -57,20 +55,20 @@ public class LoginActivity extends Fragment {
         loginButton=view.findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
 
-        incident= view.findViewById(R.id.incident_button);
-        question=view.findViewById(R.id.question_button);
         txtTop=view.findViewById(R.id.txtTop);
         accessBtn=view.findViewById(R.id.accessbtn);
         button=view.findViewById(R.id.community);
         profileBtn=view.findViewById(R.id.profile_btn);
-
         loginButton.setFragment(this);
         loginButton.setPermissions(Arrays.asList("email,public_profile"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Demo","Login success");
-
+                txtTop.setVisibility(txtTop.INVISIBLE);
+                profileBtn.setVisibility(profileBtn.VISIBLE);
+                button.setVisibility(button.VISIBLE);
+                accessBtn.setVisibility(accessBtn.VISIBLE);
             }
 
             @Override
@@ -83,9 +81,7 @@ public class LoginActivity extends Fragment {
                 Log.d("Demo","Login error");
             }
         });
-
         return view;
-
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -93,33 +89,40 @@ public class LoginActivity extends Fragment {
         ctx = getActivity();
         view = getView();
         super.onCreate(savedInstanceState);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Posts posts= new Posts();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, posts);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        accessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),FacebookFeed.class);
+                startActivity(intent);
+            }
+        });
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Profile profile = new Profile();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, profile);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
 
-
-    public void btnClick(View v){
-        Posts posts= new Posts();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, posts);
-        fragmentTransaction.commit();
-    }
-
-    public void accessCommunity(View v){
-        FacebookFeed facebookFeed = new FacebookFeed();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, facebookFeed);
-        fragmentTransaction.commit();
-    }
-
-    public void profile(View v){
-        Profile profile = new Profile();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, profile);
-        fragmentTransaction.commit();
-    }
 
 
     @Override
@@ -127,17 +130,11 @@ public class LoginActivity extends Fragment {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
-
         GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
-                    txtTop.setVisibility(txtTop.INVISIBLE);
-                    profileBtn.setVisibility(profileBtn.VISIBLE);
-                    button.setVisibility(button.VISIBLE);
-                    accessBtn.setVisibility(accessBtn.VISIBLE);
+
 
                     JSONObject image = object.getJSONObject("picture");
                     JSONObject imageData = image.getJSONObject("data");
@@ -174,7 +171,4 @@ public class LoginActivity extends Fragment {
         super.onDestroy();
         accessTokenTracker.stopTracking();
     }
-
-
-
 }
