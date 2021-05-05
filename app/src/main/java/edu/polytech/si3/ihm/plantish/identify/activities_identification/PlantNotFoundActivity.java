@@ -10,9 +10,12 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import edu.polytech.si3.ihm.plantish.MainActivity;
 import edu.polytech.si3.ihm.plantish.R;
+import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 
 
 public class PlantNotFoundActivity extends Fragment {
@@ -40,14 +43,15 @@ public class PlantNotFoundActivity extends Fragment {
     }
 
     private void onClickAskCommunityButton(){
-
+        LoginActivity login= new LoginActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, login);
+        fragmentTransaction.commit();
     }
 
     private void onClickHomeButton(){
         startActivity(new Intent(ctx, MainActivity.class));
     }
 
-    public void onBackPressed() {
-        startActivity(new Intent(ctx, PlantTypeActivity.class));
-    }
 }

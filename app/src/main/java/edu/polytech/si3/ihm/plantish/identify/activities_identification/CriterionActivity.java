@@ -49,7 +49,6 @@ import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS
 import static edu.polytech.si3.ihm.plantish.identify.Application.FILTERED_PLANTS_SERVICE;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANTS;
 import static edu.polytech.si3.ihm.plantish.identify.Application.PLANT_CRITERION_LABEL;
-import static edu.polytech.si3.ihm.plantish.identify.Application.TAG;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_GRIDVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.Application.VIEW_MODE_LISTVIEW;
 import static edu.polytech.si3.ihm.plantish.identify.enums_identification.PlantCriteria.TYPE;
@@ -260,7 +259,6 @@ public abstract class CriterionActivity extends Fragment {
 
     protected void onClickIDontKnowButton(){
         startNextActivity(plants);
-        getActivity().finish();
     }
 
 
@@ -364,12 +362,6 @@ public abstract class CriterionActivity extends Fragment {
     }
 
 
-/*
-    public void onBackPressed() {
-        if (inTypeActivity()) startActivity(new Intent(ctx, MainActivity.class));
-        startActivity(new Intent(ctx, PlantTypeActivity.class));
-    }
-*/
 
     private Boolean inTypeActivity(){
         return (plantCriteria.label.equals(TYPE.label));

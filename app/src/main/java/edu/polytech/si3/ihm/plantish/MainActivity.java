@@ -22,6 +22,7 @@ import edu.polytech.si3.ihm.plantish.community.FacebookFeed;
 import edu.polytech.si3.ihm.plantish.community.LoginActivity;
 import edu.polytech.si3.ihm.plantish.find.FindPlantActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.CriterionActivity;
+import edu.polytech.si3.ihm.plantish.identify.activities_identification.ListOfPlantsFoundActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantNotFoundActivity;
 import edu.polytech.si3.ihm.plantish.identify.activities_identification.PlantTypeActivity;
 import edu.polytech.si3.ihm.plantish.user.Session;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (f instanceof CriterionActivity || f instanceof PlantNotFoundActivity) {//the fragment on which you want to handle your back press
+        if (f instanceof CriterionActivity || f instanceof PlantNotFoundActivity || f instanceof ListOfPlantsFoundActivity) {//the fragment on which you want to handle your back press
             Log.i("BACK PRESSED", "BACK PRESSED");
         }else{
             super.onBackPressed();
