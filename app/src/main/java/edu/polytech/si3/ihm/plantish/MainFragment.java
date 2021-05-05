@@ -18,6 +18,7 @@ public class MainFragment extends Fragment {
 
     private ImageButton infoButton;
     private ImageButton loginButton;
+    private ImageButton plantsButton;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
@@ -37,6 +38,7 @@ public class MainFragment extends Fragment {
 
         infoButton = view.findViewById(R.id.mainInfoButton);
         loginButton = view.findViewById(R.id.mainLoginButton);
+        plantsButton = view.findViewById(R.id.mainPlantsButton);
 
         setOnClickButtons();
     }
@@ -44,6 +46,7 @@ public class MainFragment extends Fragment {
     private void setOnClickButtons(){
         infoButton.setOnClickListener(click -> onClickInfoButton());
         loginButton.setOnClickListener(click -> onClickLoginButton());
+        plantsButton.setOnClickListener(click -> onClickPlantsButton());
     }
 
 
@@ -56,6 +59,14 @@ public class MainFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, login);
+        fragmentTransaction.commit();
+    }
+
+    private void onClickPlantsButton(){
+        MyPlantsActivity myPlantsActivity = new MyPlantsActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, myPlantsActivity);
         fragmentTransaction.commit();
     }
 }

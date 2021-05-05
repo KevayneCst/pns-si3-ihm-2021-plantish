@@ -116,10 +116,14 @@ public abstract class PlantActivity extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String string = editAddress.getText().toString();
-                LatLng latlngLocation = PlantActivity.this.getLocationFromAddress(v.getContext(), string);
-                position.setLatitude(latlngLocation.latitude);
-                position.setLongitude(latlngLocation.longitude);
-                initializeMap(position);
+                if(!string.isEmpty()) {
+                    LatLng latlngLocation = PlantActivity.this.getLocationFromAddress(v.getContext(), string);
+                    if(latlngLocation != null) {
+                        position.setLatitude(latlngLocation.latitude);
+                        position.setLongitude(latlngLocation.longitude);
+                        initializeMap(position);
+                    }
+                }
                 return true;
 
             }
@@ -244,6 +248,7 @@ public abstract class PlantActivity extends Fragment {
             if (address == null) {
                 return null;
             }
+
             Address location = address.get(0);
             location.getLatitude();
             location.getLongitude();
@@ -352,4 +357,6 @@ public abstract class PlantActivity extends Fragment {
             imageView.setImageBitmap(bitmap);
         }
     }
+
+
 }

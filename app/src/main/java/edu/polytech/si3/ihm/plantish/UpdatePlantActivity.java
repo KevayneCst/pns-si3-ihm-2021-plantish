@@ -93,12 +93,33 @@ public class UpdatePlantActivity extends PlantActivity {
         this.spinnerFamily = (Spinner) v.findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(ctx,
-                R.array.familybush, android.R.layout.simple_spinner_item);
+                getResource(), android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinnerFamily.setAdapter(adapter2);
-        spinnerFamily.setSelection(this.getPositionStringInArrayRes(R.array.familybush, post.getPlant().getFamily()));
+
+
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(ctx,
+                        getResource(), android.R.layout.simple_spinner_item);
+                // Specify the layout to use when the list of choices appears
+                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerFamily.setAdapter(adapter2);
+
+                //   ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                //   imageView.setImageBitmap();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         //**
 
         //** Camera

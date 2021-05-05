@@ -19,6 +19,20 @@
         app:srcCompat="@drawable/i" />
 
     <ImageButton
+        android:id="@+id/mainPlantsButton"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/plants"
+        android:background="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mainLoginButton"
+        app:layout_constraintStart_toEndOf="@+id/mainInfoButton" />
+
+    <ImageButton
         android:id="@+id/mainLoginButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
