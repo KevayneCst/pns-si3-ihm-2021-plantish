@@ -144,7 +144,11 @@ public class ListOfPlantsFoundActivity extends Fragment {
     }
 
     private void goToNotFoundActivity(){
-        startActivity(new Intent(ctx.getApplicationContext(), PlantNotFoundActivity.class));
+        PlantNotFoundActivity plantNotFoundActivity = new PlantNotFoundActivity();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, plantNotFoundActivity);
+        fragmentTransaction.commit();
     }
 
     private void setPlants() {
