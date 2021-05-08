@@ -44,7 +44,6 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_find, container, false);
-        //Exemple d'instanciation d'éléments graphiques. Ils devraient être ceux de votre activité.
 
         return view;
     }
@@ -57,12 +56,10 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
         super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
         org.osmdroid.config.Configuration.getInstance().load(ctx.getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext()));
-       // MainActivity.setBottomNavigation(this);
         map = view.findViewById(R.id.mapObject1);
         map.setTileSource(TileSourceFactory.MAPNIK); //Render
         map.setMultiTouchControls(true);
 
-        // map.setBuiltInZoomControls(true); //Zoomable
         GeoPoint center = MyLocationListener.getLocation(getActivity());
         IMapController controller = map.getController();
         controller.setZoom(DEFAULT_ZOOM); //Valeur par défault du zoom
@@ -71,18 +68,14 @@ public class FindPlantActivity extends Fragment implements LinkedFilter {
         FilterData filter = FindPlantFilterActivity.defaultData;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-          /*  Bundle extras = bundle.getParcelable(KEYWORD_INTENT);
-            if (extras != null) {*/
-                FilterData parcelable = bundle.getParcelable(KEYWORD_INTENT);
-                if (parcelable != null) {
-                    filter = parcelable;
-                }
-            //}
+            FilterData parcelable = bundle.getParcelable(KEYWORD_INTENT);
+            if (parcelable != null) {
+                filter = parcelable;
+            }
         }
 
         List<OverlayItem> items = PlantFilterManager.getInstance().getFilteredPlants(ctx.getApplicationContext(), filter, center);
         OverlayItem home = new OverlayItem("Vous êtes ici", "Votre position actuelle", center);
-        Drawable d = home.getMarker(0); //TODO mettre une image selon le type de plante (arbre, fleur...)
         items.add(home);
 
         ItemizedOverlayWithFocus<OverlayItem> itemizedOverlayWithFocus = new ItemizedOverlayWithFocus<>(ctx.getApplicationContext(), items, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
